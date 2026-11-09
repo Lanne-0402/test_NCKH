@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: gamephcn-mongodb-api
+    runtime: python
+    region: singapore  # Khu vực Singapore gần Việt Nam nhất, độ trễ thấp
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: MONGO_URI
+        sync: false  # Người dùng sẽ nhập giá trị bí mật này trên Render Dashboard
+      - key: MONGO_DB
+        value: rehab_pixel_game
+      - key: API_KEY
+        value: rehab_pixel_game
