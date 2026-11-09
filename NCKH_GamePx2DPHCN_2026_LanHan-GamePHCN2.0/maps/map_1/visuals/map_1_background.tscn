@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://maps/shared/world/scrolling_background.gd" id="1_scroll"]
 [ext_resource type="Texture2D" path="res://assets/map_1/environment/background_sky.png" id="2_sky"]
 [ext_resource type="Texture2D" path="res://assets/map_1/environment/forest_far.png" id="3_forest"]
 [ext_resource type="Texture2D" path="res://assets/map_1/environment/forest_near.png" id="4_bushes"]
 [ext_resource type="Script" path="res://maps/shared/world/forest_details.gd" id="5_details"]
+
+[ext_resource type="PackedScene" path="res://maps/map_1/visuals/map_1_scenery_details.tscn" id="scenery_details"]
 
 [node name="ScrollingBackground" type="Node2D"]
 z_index = -20
@@ -13,6 +15,7 @@ far_scroll_speed = 18.0
 near_scroll_speed = 42.0
 
 [node name="ForestDetails" type="Node2D" parent="."]
+position = Vector2(0, 10)
 z_index = 1
 script = ExtResource("5_details")
 
@@ -95,3 +98,6 @@ position = Vector2(960, 200)
 scale = Vector2(3, 3)
 texture_filter = 1
 texture = ExtResource("4_bushes")
+
+[node name="SceneryDetails" parent="." instance=ExtResource("scenery_details")]
+z_index = 1

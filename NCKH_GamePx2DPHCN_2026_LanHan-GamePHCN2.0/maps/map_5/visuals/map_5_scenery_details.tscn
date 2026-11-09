@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/map_4/goal/summit_tree.png" id="tree"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/long_rock.png" id="rock"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/moss_boulder.png" id="moss"]
+[ext_resource type="Texture2D" path="res://assets/itch.io/Legacy-Fantasy - High Forest 2.0/Legacy-Fantasy - High Forest 2.3/Assets/Tree-Assets.png" id="atlas"]
+[ext_resource type="Texture2D" path="res://assets/itch.io/Legacy-Fantasy - High Forest 2.0/Legacy-Fantasy - High Forest 2.3/Assets/Props-Rocks.png" id="stones"]
+
+[node name="SceneryDetails" type="Node2D"]
+texture_filter = 1
+
+[node name="QuietPineLeft" type="Sprite2D" parent="."]
+position = Vector2(5, 51.200)
+scale = Vector2(2.4, 2.4)
+texture = ExtResource("tree")
+centered = false
+
+[node name="QuietPineRight" type="Sprite2D" parent="."]
+position = Vector2(996, 79.200)
+scale = Vector2(2.15, 2.15)
+texture = ExtResource("tree")
+centered = false
+flip_h = true
+
+[node name="PoolsideShrub" type="Sprite2D" parent="."]
+position = Vector2(175, 267.2)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("atlas")
+centered = false
+region_enabled = true
+region_rect = Rect2(208, 0, 128, 96)
+region_filter_clip_enabled = true
+
+[node name="GardenRockLeft" type="Sprite2D" parent="."]
+position = Vector2(215, 288.000)
+scale = Vector2(1, 1)
+texture = ExtResource("rock")
+centered = false
+
+[node name="GardenRockRight" type="Sprite2D" parent="."]
+position = Vector2(900, 272.000)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("rock")
+centered = false
+
+[node name="GardenMushrooms" type="Sprite2D" parent="."]
+position = Vector2(164, 284.000)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("atlas")
+centered = false
+region_enabled = true
+region_rect = Rect2(160, 40, 16, 24)
+region_filter_clip_enabled = true
+
+[node name="LowFernsRight" type="Sprite2D" parent="."]
+position = Vector2(970, 296.000)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("atlas")
+centered = false
+region_enabled = true
+region_rect = Rect2(128, 48, 32, 16)
+region_filter_clip_enabled = true

@@ -1,0 +1,229 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/shared/environment/stone.png" id="stone"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/grass.png" id="grass"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/long_rock.png" id="rock"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/moss_boulder.png" id="moss"]
+[ext_resource type="Texture2D" path="res://assets/map_1/goal/stone_mine_entrance.png" id="mine"]
+
+[ext_resource type="PackedScene" path="res://maps/map_4/visuals/map_4_scenery_details.tscn" id="scenery_details"]
+
+[node name="TerrainArt" type="Node2D"]
+texture_filter = 1
+
+[node name="SolidCliff" type="Polygon2D" parent="."]
+color = Color(1.25, 1.2, 1.1, 1)
+texture_repeat = 2
+texture = ExtResource("stone")
+uv = PackedVector2Array(-320.0, 160.0, 150.0, 160.0, 150.0, 148.0, 190.0, 148.0, 190.0, 136.0, 230.0, 136.0, 230.0, 124.0, 270.0, 124.0, 270.0, 112.0, 310.0, 112.0, 310.0, 100.0, 350.0, 100.0, 350.0, 88.0, 390.0, 88.0, 390.0, 76.0, 430.0, 76.0, 430.0, 64.0, 470.0, 64.0, 470.0, 52.0, 510.0, 52.0, 510.0, 40.0, 550.0, 40.0, 890.0, 40.0, 890.0, 480.0, -320.0, 480.0)
+polygon = PackedVector2Array(-640, 320, 300, 320, 300, 296, 380, 296, 380, 272, 460, 272, 460, 248, 540, 248, 540, 224, 620, 224, 620, 200, 700, 200, 700, 176, 780, 176, 780, 152, 860, 152, 860, 128, 940, 128, 940, 104, 1020, 104, 1020, 80, 1100, 80, 1780, 80, 1780, 960, -640, 960)
+
+[node name="EarthStratum0" type="Polygon2D" parent="."]
+color = Color(0.23,0.22,0.14,0.55)
+polygon = PackedVector2Array(-640, 366, -480, 368, -400, 373, -320, 378, -240, 368, -160, 373, -80, 378, 0, 368, 80, 373, 160, 378, 240, 368, 320, 349, 400, 330, 480, 296, 560, 277, 640, 258, 720, 224, 800, 205, 880, 186, 960, 152, 1040, 133, 1120, 138, 1200, 128, 1280, 133, 1360, 138, 1440, 128, 1520, 133, 1600, 138, 1680, 128, 1760, 133, 1760, 153, 1680, 144, 1600, 150, 1520, 153, 1440, 144, 1360, 150, 1280, 153, 1200, 144, 1120, 150, 1040, 153, 960, 168, 880, 198, 800, 225, 720, 240, 640, 270, 560, 297, 480, 312, 400, 342, 320, 369, 240, 384, 160, 390, 80, 393, 0, 384, -80, 390, -160, 393, -240, 384, -320, 390, -400, 393, -480, 384, -640, 378)
+
+[node name="EarthStratum1" type="Polygon2D" parent="."]
+color = Color(0.12,0.15,0.09,0.7)
+polygon = PackedVector2Array(-640, 446, -480, 448, -400, 453, -320, 458, -240, 448, -160, 453, -80, 458, 0, 448, 80, 453, 160, 458, 240, 448, 320, 429, 400, 410, 480, 376, 560, 357, 640, 338, 720, 304, 800, 285, 880, 266, 960, 232, 1040, 213, 1120, 218, 1200, 208, 1280, 213, 1360, 218, 1440, 208, 1520, 213, 1600, 218, 1680, 208, 1760, 213, 1760, 233, 1680, 224, 1600, 230, 1520, 233, 1440, 224, 1360, 230, 1280, 233, 1200, 224, 1120, 230, 1040, 233, 960, 248, 880, 278, 800, 305, 720, 320, 640, 350, 560, 377, 480, 392, 400, 422, 320, 449, 240, 464, 160, 470, 80, 473, 0, 464, -80, 470, -160, 473, -240, 464, -320, 470, -400, 473, -480, 464, -640, 458)
+
+[node name="EarthStratum2" type="Polygon2D" parent="."]
+color = Color(0.28,0.25,0.16,0.38)
+polygon = PackedVector2Array(-640, 526, -480, 528, -400, 533, -320, 538, -240, 528, -160, 533, -80, 538, 0, 528, 80, 533, 160, 538, 240, 528, 320, 509, 400, 490, 480, 456, 560, 437, 640, 418, 720, 384, 800, 365, 880, 346, 960, 312, 1040, 293, 1120, 298, 1200, 288, 1280, 293, 1360, 298, 1440, 288, 1520, 293, 1600, 298, 1680, 288, 1760, 293, 1760, 313, 1680, 304, 1600, 310, 1520, 313, 1440, 304, 1360, 310, 1280, 313, 1200, 304, 1120, 310, 1040, 313, 960, 328, 880, 358, 800, 385, 720, 400, 640, 430, 560, 457, 480, 472, 400, 502, 320, 529, 240, 544, 160, 550, 80, 553, 0, 544, -80, 550, -160, 553, -240, 544, -320, 550, -400, 553, -480, 544, -640, 538)
+
+[node name="EarthStratum3" type="Polygon2D" parent="."]
+color = Color(0.1,0.12,0.08,0.7)
+polygon = PackedVector2Array(-640, 606, -480, 608, -400, 613, -320, 618, -240, 608, -160, 613, -80, 618, 0, 608, 80, 613, 160, 618, 240, 608, 320, 589, 400, 570, 480, 536, 560, 517, 640, 498, 720, 464, 800, 445, 880, 426, 960, 392, 1040, 373, 1120, 378, 1200, 368, 1280, 373, 1360, 378, 1440, 368, 1520, 373, 1600, 378, 1680, 368, 1760, 373, 1760, 393, 1680, 384, 1600, 390, 1520, 393, 1440, 384, 1360, 390, 1280, 393, 1200, 384, 1120, 390, 1040, 393, 960, 408, 880, 438, 800, 465, 720, 480, 640, 510, 560, 537, 480, 552, 400, 582, 320, 609, 240, 624, 160, 630, 80, 633, 0, 624, -80, 630, -160, 633, -240, 624, -320, 630, -400, 633, -480, 624, -640, 618)
+
+[node name="StartingGrass" type="Sprite2D" parent="."]
+position = Vector2(-640, 300)
+scale = Vector2(2, 2)
+texture = ExtResource("grass")
+centered = false
+texture_repeat = 2
+region_enabled = true
+region_rect = Rect2(0, 0, 470, 16)
+
+[node name="SummitGrass" type="Sprite2D" parent="."]
+position = Vector2(1100, 60)
+scale = Vector2(2, 2)
+texture = ExtResource("grass")
+centered = false
+texture_repeat = 2
+region_enabled = true
+region_rect = Rect2(0, 0, 340, 16)
+
+[node name="LeftOutcrop" type="Sprite2D" parent="."]
+position = Vector2(-338, 160)
+scale = Vector2(2, 2)
+texture = ExtResource("moss")
+centered = false
+modulate = Color(0.8, 0.9, 0.78, 1)
+
+[node name="MineEntrance" type="Sprite2D" parent="."]
+position = Vector2(-222, 64)
+scale = Vector2(2, 2)
+texture = ExtResource("mine")
+centered = false
+flip_h = true
+
+[node name="EntranceFooting" type="Sprite2D" parent="."]
+position = Vector2(-106, 298)
+scale = Vector2(2, 0.7)
+texture = ExtResource("rock")
+centered = false
+flip_h = true
+
+[node name="EntranceSideRock" type="Sprite2D" parent="."]
+position = Vector2(-260, 240)
+scale = Vector2(1, 1)
+texture = ExtResource("moss")
+centered = false
+flip_h = true
+
+[node name="LowRock" type="Sprite2D" parent="."]
+position = Vector2(106, 294)
+scale = Vector2(1, 0.85)
+texture = ExtResource("rock")
+centered = false
+
+[node name="CliffFace0" type="Sprite2D" parent="."]
+position = Vector2(235, 357)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = true
+
+[node name="CliffFace1" type="Sprite2D" parent="."]
+position = Vector2(316, 324)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = false
+
+[node name="MossPocket1" type="Sprite2D" parent="."]
+position = Vector2(336, 358)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("moss")
+centered = false
+modulate = Color(0.7, 0.8, 0.62, 1)
+
+[node name="CliffFace2" type="Sprite2D" parent="."]
+position = Vector2(391, 304)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = true
+
+[node name="CliffFace3" type="Sprite2D" parent="."]
+position = Vector2(478, 286)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = false
+
+[node name="CliffFace4" type="Sprite2D" parent="."]
+position = Vector2(558, 255)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = true
+
+[node name="MossPocket4" type="Sprite2D" parent="."]
+position = Vector2(576, 286)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("moss")
+centered = false
+modulate = Color(0.7, 0.8, 0.62, 1)
+
+[node name="CliffFace5" type="Sprite2D" parent="."]
+position = Vector2(630, 233)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = false
+
+[node name="CliffFace6" type="Sprite2D" parent="."]
+position = Vector2(712, 215)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = true
+
+[node name="CliffFace7" type="Sprite2D" parent="."]
+position = Vector2(795, 180)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = false
+
+[node name="MossPocket7" type="Sprite2D" parent="."]
+position = Vector2(816, 214)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("moss")
+centered = false
+modulate = Color(0.7, 0.8, 0.62, 1)
+
+[node name="CliffFace8" type="Sprite2D" parent="."]
+position = Vector2(876, 167)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = true
+
+[node name="CliffFace9" type="Sprite2D" parent="."]
+position = Vector2(950, 132)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = false
+
+[node name="CliffFace10" type="Sprite2D" parent="."]
+position = Vector2(1038, 111)
+scale = Vector2(1.1, 1.0)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.78, 0.8, 0.67, 1)
+flip_h = true
+
+[node name="MossPocket10" type="Sprite2D" parent="."]
+position = Vector2(1056, 142)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("moss")
+centered = false
+modulate = Color(0.7, 0.8, 0.62, 1)
+
+[node name="CaveRoofLeft" type="Sprite2D" parent="."]
+position = Vector2(-80.8, 36)
+scale = Vector2(1.7, 1.4)
+texture = ExtResource("rock")
+centered = false
+modulate = Color(0.75, 0.82, 0.65, 1)
+flip_h = true
+
+[node name="CaveRoofRight" type="Sprite2D" parent="."]
+position = Vector2(-210.4, 30)
+scale = Vector2(2.1, 1.6)
+texture = ExtResource("rock")
+centered = false
+flip_h = false
+modulate = Color(0.72, 0.8, 0.65, 1)
+
+[node name="CaveNaturalSide" type="Sprite2D" parent="."]
+position = Vector2(-281.2, 58)
+scale = Vector2(1.8, 3.25)
+texture = ExtResource("moss")
+centered = false
+modulate = Color(0.8, 0.85, 0.68, 1)
+flip_h = true
+
+[node name="SceneryDetails" parent="." instance=ExtResource("scenery_details")]

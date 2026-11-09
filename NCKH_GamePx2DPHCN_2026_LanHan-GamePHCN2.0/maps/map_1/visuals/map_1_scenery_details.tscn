@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/map_4/goal/summit_tree.png" id="tree"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/long_rock.png" id="rock"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/moss_boulder.png" id="moss"]
+[ext_resource type="Texture2D" path="res://assets/itch.io/Legacy-Fantasy - High Forest 2.0/Legacy-Fantasy - High Forest 2.3/Assets/Tree-Assets.png" id="atlas"]
+[ext_resource type="Texture2D" path="res://assets/itch.io/Legacy-Fantasy - High Forest 2.0/Legacy-Fantasy - High Forest 2.3/Assets/Props-Rocks.png" id="stones"]
+
+[node name="SceneryDetails" type="Node2D"]
+texture_filter = 1
+
+[node name="ForestPineLeft" type="Sprite2D" parent="."]
+position = Vector2(8, 56.800)
+scale = Vector2(2.35, 2.35)
+texture = ExtResource("tree")
+centered = false
+modulate = Color(0.8, 0.88, 0.72, 1)
+
+[node name="WoodlandShrub" type="Sprite2D" parent="."]
+position = Vector2(158, 257.6)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("atlas")
+centered = false
+region_enabled = true
+region_rect = Rect2(208, 0, 128, 96)
+region_filter_clip_enabled = true
+
+[node name="MossBankRight" type="Sprite2D" parent="."]
+position = Vector2(1000, 224.000)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("moss")
+centered = false
+
+[node name="WoodlandMushrooms" type="Sprite2D" parent="."]
+position = Vector2(226, 286.400)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("atlas")
+centered = false
+region_enabled = true
+region_rect = Rect2(160, 40, 16, 24)
+region_filter_clip_enabled = true
+
+[node name="PebblesLeft" type="Sprite2D" parent="."]
+position = Vector2(115, 293.600)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("stones")
+centered = false
+region_enabled = true
+region_rect = Rect2(152, 0, 38, 22)
+region_filter_clip_enabled = true
+
+[node name="PebblesRight" type="Sprite2D" parent="."]
+position = Vector2(1064, 284.800)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("rock")
+centered = false

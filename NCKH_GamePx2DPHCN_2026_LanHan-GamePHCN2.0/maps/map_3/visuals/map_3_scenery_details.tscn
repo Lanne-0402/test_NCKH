@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/map_4/goal/summit_tree.png" id="tree"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/long_rock.png" id="rock"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/moss_boulder.png" id="moss"]
+[ext_resource type="Texture2D" path="res://assets/itch.io/Legacy-Fantasy - High Forest 2.0/Legacy-Fantasy - High Forest 2.3/Assets/Tree-Assets.png" id="atlas"]
+[ext_resource type="Texture2D" path="res://assets/itch.io/Legacy-Fantasy - High Forest 2.0/Legacy-Fantasy - High Forest 2.3/Assets/Props-Rocks.png" id="stones"]
+
+[node name="SceneryDetails" type="Node2D"]
+texture_filter = 1
+
+[node name="StandingStoneLeft" type="Sprite2D" parent="."]
+position = Vector2(18, 176.000)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("stones")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 160, 64, 96)
+region_filter_clip_enabled = true
+modulate = Color(0.8, 0.87, 0.78, 1)
+
+[node name="StandingStoneRight" type="Sprite2D" parent="."]
+position = Vector2(1050, 185.600)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("stones")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 160, 64, 96)
+region_filter_clip_enabled = true
+modulate = Color(0.8, 0.87, 0.78, 1)
+flip_h = true
+
+[node name="StoneGardenLeft" type="Sprite2D" parent="."]
+position = Vector2(120, 276.800)
+scale = Vector2(1.35, 1.35)
+texture = ExtResource("rock")
+centered = false
+
+[node name="StoneGardenRight" type="Sprite2D" parent="."]
+position = Vector2(965, 281.600)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("rock")
+centered = false
+
+[node name="MossClusterLeft" type="Sprite2D" parent="."]
+position = Vector2(178, 264.000)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("moss")
+centered = false
+
+[node name="MossClusterRight" type="Sprite2D" parent="."]
+position = Vector2(930, 272.000)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("moss")
+centered = false
+flip_h = true

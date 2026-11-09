@@ -3,7 +3,12 @@
 [ext_resource type="PackedScene" path="res://maps/map_4/visuals/map_4_step.tscn" id="1_step"]
 [ext_resource type="PackedScene" path="res://maps/map_4/visuals/map_4_summit_visual.tscn" id="2_summit"]
 
+[ext_resource type="PackedScene" path="res://maps/map_4/visuals/map_4_terrain_art.tscn" id="3_terrain"]
+
 [node name="Map4ClimbTrack" type="Node2D"]
+
+[node name="TerrainArt" parent="." instance=ExtResource("3_terrain")]
+z_index = -1
 
 [node name="Step_00" parent="." instance=ExtResource("1_step")]
 position = Vector2(220, 320)
