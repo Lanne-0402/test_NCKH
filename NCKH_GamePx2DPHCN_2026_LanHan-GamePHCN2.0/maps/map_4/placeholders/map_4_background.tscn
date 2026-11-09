@@ -1,0 +1,55 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://dso7ymc4hppnj" path="res://maps/shared/world/scrolling_background.gd" id="1_scroll"]
+
+[node name="ScrollingBackground" type="Node2D"]
+z_index = -20
+script = ExtResource("1_scroll")
+
+[node name="Sky" type="ColorRect" parent="."]
+offset_left = -384.0
+offset_top = -64.0
+offset_right = 1536.0
+offset_bottom = 520.0
+mouse_filter = 2
+color = Color(0.72, 0.82, 0.92, 1)
+
+[node name="FarLayer" type="Node2D" parent="."]
+
+[node name="SegmentA" type="Polygon2D" parent="FarLayer"]
+color = Color(0.52, 0.58, 0.62, 1)
+polygon = PackedVector2Array(0, 320, 0, 250, 200, 190, 380, 260, 560, 180, 740, 250, 920, 175, 1152, 230, 1152, 320)
+
+[node name="SegmentB" type="Polygon2D" parent="FarLayer"]
+position = Vector2(1152, 0)
+color = Color(0.52, 0.58, 0.62, 1)
+polygon = PackedVector2Array(0, 320, 0, 250, 200, 190, 380, 260, 560, 180, 740, 250, 920, 175, 1152, 230, 1152, 320)
+
+[node name="SegmentC" type="Polygon2D" parent="FarLayer"]
+position = Vector2(-384, 0)
+color = Color(0.52, 0.58, 0.62, 1)
+polygon = PackedVector2Array(0, 320, 0, 250, 200, 190, 380, 260, 560, 180, 740, 250, 920, 175, 1152, 230, 1152, 320)
+
+[node name="NearLayer" type="Node2D" parent="."]
+
+[node name="SegmentA" type="Polygon2D" parent="NearLayer"]
+color = Color(0.34, 0.38, 0.40, 1)
+polygon = PackedVector2Array(0, 320, 0, 290, 150, 265, 300, 300, 450, 262, 600, 298, 750, 258, 900, 295, 1050, 260, 1152, 292, 1152, 320)
+
+[node name="SegmentB" type="Polygon2D" parent="NearLayer"]
+position = Vector2(1152, 0)
+color = Color(0.34, 0.38, 0.40, 1)
+polygon = PackedVector2Array(0, 320, 0, 290, 150, 265, 300, 300, 450, 262, 600, 298, 750, 258, 900, 295, 1050, 260, 1152, 292, 1152, 320)
+
+[node name="SegmentC" type="Polygon2D" parent="NearLayer"]
+position = Vector2(-384, 0)
+color = Color(0.34, 0.38, 0.40, 1)
+polygon = PackedVector2Array(0, 320, 0, 290, 150, 265, 300, 300, 450, 262, 600, 298, 750, 258, 900, 295, 1050, 260, 1152, 292, 1152, 320)
+
+[node name="Abyss" type="ColorRect" parent="."]
+offset_left = -384.0
+offset_top = 322.0
+offset_right = 1536.0
+offset_bottom = 760.0
+mouse_filter = 2
+color = Color(0.12, 0.14, 0.18, 1)

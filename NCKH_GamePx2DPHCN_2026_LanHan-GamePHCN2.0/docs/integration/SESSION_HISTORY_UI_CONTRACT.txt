@@ -1,0 +1,40 @@
+SESSION HISTORY / RESULTS UI - proposed optional fields (2026-10-23)
+
+This is a proposed UI contract, NOT a confirmed BE wire schema.
+STATUS 2026-10-23: deferred by user until BE supplies the new fields.
+Read-only audit of Downloads/NCKH_GamePx2DPHCN_2026_LanHan-GamePHCN2.0:
+runtime WebSocket JSON exists in main.py/exercises_logic.py; no standalone
+sample JSON was found in scanned project sources. The Godot session summary
+still lacks profile ownership, explicit end status, four duration totals and
+complete target/completion fields. Per-rep duration_ms is NOT session duration.
+NEXT: obtain updated BE payload examples, agree field names/units/ownership,
+map them into UI, test missing fields + early stop + interruption + old records.
+Until then retain unavailable placeholders. Do not invent values or migrate saves.
+
+Existing JSON saves are not migrated or overwritten by this change.
+BE integration must map validated payloads into the session dictionaries.
+
+profile_id: non-empty string identifying the owner. No name/account is invented.
+status: completed | stopped_early | interrupted
+ended_at_utc: ISO datetime UTC for any end status; legacy completed_at_utc is fallback.
+active_seconds, rest_seconds, paused_seconds, tracking_lost_seconds:
+  non-negative numeric durations in seconds, mutually exclusive categories.
+  Active duration excludes rest, pause, tracking loss. Never infer it from wall time.
+completed_reps, target_reps: non-negative integers, totals across the whole session.
+completed_sets, target_sets: non-negative integers.
+  Legacy phase_count is configuration, not proof of completed sets.
+
+Missing/null/invalid optional numeric fields display unavailable, not zero.
+Zero is displayed as zero only if explicitly supplied.
+Old records lack explicit status/profile/time/targets; UI does not invent them.
+Legacy valid_reps/rejected_reps remain separate game counters.
+Results consume the session_completed summary signal, not the last history record.
+No early-exit recording, measurement, account authentication or sync is added here.
+History currently shows all locally loaded records with their profile IDs.
+BE must enforce user ownership and return only authorized history; UI labels are
+not an access-control boundary. Agree exact wire names before connecting endpoints.
+
+Example optional fields:
+{"profile_id":"demo-profile","status":"completed","active_seconds":260,
+ "rest_seconds":30,"paused_seconds":12,"tracking_lost_seconds":8,
+ "completed_reps":10,"target_reps":10,"completed_sets":2,"target_sets":2}

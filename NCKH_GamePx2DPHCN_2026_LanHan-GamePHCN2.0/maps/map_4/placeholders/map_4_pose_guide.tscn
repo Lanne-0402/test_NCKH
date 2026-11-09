@@ -1,0 +1,56 @@
+[gd_scene format=3]
+
+[node name="Map4PoseGuide" type="Control"]
+custom_minimum_size = Vector2(0, 116)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.93, 0.95, 0.98, 1)
+
+[node name="Torso" type="ColorRect" parent="."]
+offset_left = 252.0
+offset_top = 55.0
+offset_right = 292.0
+offset_bottom = 108.0
+color = Color(0.20, 0.45, 0.85, 1)
+
+[node name="Head" type="ColorRect" parent="."]
+offset_left = 260.0
+offset_top = 30.0
+offset_right = 284.0
+offset_bottom = 55.0
+color = Color(1, 0.78, 0.58, 1)
+
+[node name="ArmLeft" type="ColorRect" parent="."]
+offset_left = 228.0
+offset_top = 34.0
+offset_right = 240.0
+offset_bottom = 68.0
+rotation = -0.55
+color = Color(0.15, 0.35, 0.72, 1)
+
+[node name="ArmRight" type="ColorRect" parent="."]
+offset_left = 304.0
+offset_top = 34.0
+offset_right = 316.0
+offset_bottom = 68.0
+rotation = 0.55
+color = Color(0.15, 0.35, 0.72, 1)
+
+[node name="Caption" type="Label" parent="."]
+offset_left = 68.0
+offset_top = 85.0
+offset_right = 476.0
+offset_bottom = 112.0
+theme_override_colors/font_color = Color(0.12, 0.12, 0.12, 1)
+theme_override_font_sizes/font_size = 16
+text = "Hai tay ôm sau đầu • Khép khuỷu về giữa • Giữ 5 giây để nhảy"
+horizontal_alignment = 1

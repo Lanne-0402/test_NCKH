@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dkfybum1em5q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7rlf"]
+size = Vector2(1151, 182)
+
+[node name="Ground" type="StaticBody2D" unique_id=1022618819]
+
+[node name="Street" type="ColorRect" parent="." unique_id=856593517]
+offset_left = 1.0
+offset_top = 87.0
+offset_right = 1152.0
+offset_bottom = 269.0
+color = Color(0.30, 0.21, 0.12, 1)
+
+[node name="GrassTop" type="ColorRect" parent="."]
+offset_left = 1.0
+offset_top = 87.0
+offset_right = 1152.0
+offset_bottom = 101.0
+color = Color(0.18, 0.55, 0.18, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=193353533]
+position = Vector2(576.5, 178)
+shape = SubResource("RectangleShape2D_s7rlf")

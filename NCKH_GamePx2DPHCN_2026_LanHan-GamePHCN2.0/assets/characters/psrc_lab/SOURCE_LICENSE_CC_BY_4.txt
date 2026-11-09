@@ -1,0 +1,87 @@
+Pixel Sprites a la Reactorcore (PSRC)
+
+It is a standardized library of pixel game art sprites, designed to support the visual side of an open world real time universe simulation in all aspects, from pie to person to planet.
+
+===
+Remember these universal rules that apply to all PSRC sprites:
+- STANDARDIZED UNIVERSAL COMMON SCALE
+- 1 Meter = 32 Pixels
+- 8 pixels = 25cm
+- Average Human = 60 Pixels tall, 1,5m roughly.
+- Can zoom in up to 600%
+
+
+===
+What is included:
+- Infosheet; is for reference, overview and information of everything in the pack.
+- Optimized sheets; all sprites are crammed into it in the same order as the individual images.
+- Individual images; these are found in the subfolders if you prefer them this way.
+
+
+===
+Recommended texture settings within game engines:
+- Pixels Per Unit = 32
+- Filter mode = Point
+
+
+===
+Contact:
+
+Email:
+mailto:reactorcoregames@gmail.com
+
+Website:
+http://www.reactorcoregames.com
+
+
+===
+Detailed information:
+
+PSRC - Pixel Sprites ala Reactorcore
+
+This package is part of a larger library of pixel game art sprites.
+All packages under the PSRC series have been designed to be consistent, intercompatible, flexible, customizable, clear, easy to use and replicate.
+
+All sprites follow the same global 1m = 32px rule, where the standard height of a human being is 60px or roughly 1.5m. This is a scale standard, on which all the sprites have been based on. This means all items, objects, vehicles, things are all realistically proportional to one another; everything has the correct size that it would have in the real world, for the most part. Please do note that the style is deliberately pseudo realistic, it still comes with some cartoony aspects injected to make the sprites more expressive that pure realism cannot achieve.
+
+All sprites are consistent in style, scale, shading and are zoomable up to 600%, meaning it will look good up to 6 times the original size before the individual pixels begin to be noticably too blocky in an irritating way and feel somewhat unpleasant aesthetically. Below 600% zoom/size, this irritating effect is tolerable enough to be ignored by the human eye.
+
+These graphics are intended for video game use. They have baked-in game design implemented into them, allowing this entire system to represent objects from a tiny plant, to a human being to a giant cargo boat, a mountain, moon, planet, star and beyond. You can effectively use this package to represent all aspects of a full Universe, both micro and macro scale. This is possible thanks to the 3M system, which offers a method to represent objects that would be impossible to draw with pixel art due to their size. 
+
+The gist of the 3M system is to use basic primitive shapes like circles, rectangles, triangles and polygons that can be freely streched, scaled and rotated, take on a seamlessly tiling texture and a color tint and placed on top of one another to represent objects in the game that are larger than 3 meters - hence the name. Its a mixture of using technology common to 3D models used alongside hand-made pixel art, all represented in 2D sideview to create a visual system that could solve the issue of how to use a unified visual system to represent anything in a universe simulator open world type of game.
+
+Implementing the 3M system depends on the game engine or framework you're using but I offer various assets on my Itch.io page (https://reactorcore.itch.io/) that can give you the necessary components to drive it - such as primitive 3D models, pixel art textures and the various pixel art sprite packs such as this one. The key is to use as minimal amount of polygons/shapes as possible to represent whatever you want to show - whether thats a car, house, a lamp post, cargoship, jetliner, truck, mountain, planet, tree, star, windmill and so on. 
+
+For things that are enormous, like mountains, moons, planets, megastructures, giant vehicles and stars, create 3 different levels of representations for them; a far-horizon model that merely shows the simple silhouette of it, a section model that shows a chunk of the greater object that defines the major components of the local area seen from a distance, and finally a local model where the actual player character will stand and walk upon.
+
+This can be done either as a seamless world or as a segmented world where the player transitions from area to area through doors - somewhat like moving around the world in super metroid, with the exception that the greater universe or atleast the local surroundings are visible in the background's open sky in sort of a "if you can see that place in the distance over there, then its possible to go visit it". Essentially the background would need to be split into 4 directions so anything you see in the north areas of the background requires the player to travel upward in relation to the current area they are in, left if its in the west, right if its in the east and down if its in the south. Far away objects would shrink or grows from the player's point of view depending if they are coming closer to it or going further away from it. Things like solid background walls can block visibility of the far background and distant objects that eclipse the view can also prevent vision for the others things behind it too.
+
+All objects are also designed with the efficiency principle that they only need one sprite to represent them; use the same sprite as a physics object, as a menu/inventory icon or as any other representation of the object. Instead of frame based animations that are expensive to make, the goal is to use rotation, movement and scaling to procedurally animate the sprites through code. To make objects feel reactive, like indicate motion, accumulated damage, status effects, use particle systems or equivalent visual effects. These deliberate design choices make it possible to create more content for less effort, cheaper and faster, making mass production possible to create games with thousands or more pieces of content that otherwise would be unfeasible to do with hand-made animation frames.
+
+Lastly, the provided Grayscale versions of the sprites allow for tint colors through blending modes through code, allowing you to recolor the sprites within the game instead of being stuck to one particular color scheme only. Using shaders allows for even further possibilities to the use the grayscale template sprites to further augment the look and feel of the visuals in the game, making it possible to support different solutions for colored lighting systems, day and night cycles, style/mood filters and other creative solutions that are otherwise impossible with pre-colored sprites.
+
+
+===
+Contents:
+
+The pack provides two usable formats for the sprites:
+1. An optimized power-of-two(256px) sprite atlas sheet.
+2. A folder that contains each object from the sheet as an individual image - in the same order as they appear on the sheet from left to right, top to bottom.
+
+The infosheet is meant only as a reference, while the optimized sheet and the individual images are meant for actual use.
+
+The specific scale I decided on is based on research I made for the best possible 2D sideview game that takes into account the ability to zoom in/out, be lightweight, fast to develop, have enough detail to be clear what it is and look cool.
+
+There is usually a greyscale template and a default color version of each sprite. Choose which format suits your project the best. You can easily created recolored versions of the sprites with any image editor that supports layers and blending modes; simply create a new raster layer, paint with the custom colors and patterns you want them sprites to have, change the layer settings to have a blending mode of either Color, Overlay, Hard Light, Screen, Multiply or whichever gives you best result.
+
+
+===
+License:
+
+CC-BY 4.0
+Reactorcore
+http://www.reactorcoregames.com
+
+This work © 2024 by Reactorcore is licensed under CC BY 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+
+(It means you can use them anywhere, even commercially. You only need to mention me (Reactorcore) and my website in the credits.)

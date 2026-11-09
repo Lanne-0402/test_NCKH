@@ -1,0 +1,3 @@
+Assets đang giữ: characters/mk2_lab (runtime), shared/environment, shared/ui, map_1, map_4.
+Bộ nguồn chưa dùng nằm ngoài res:// trong HANDOFF_ARCHIVE_20261014; xem HANDOFF_BE.txt ở gốc.
+Giữ các file license và .gd.uid. Không xóa placeholders chỉ dựa vào tên.

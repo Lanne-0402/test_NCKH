@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://maps/map_4/placeholders/map_4_ledge_visual.tscn" id="1_ledge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ledge"]
+size = Vector2(180, 18)
+
+[node name="ClimbStep" type="Node2D"]
+
+[node name="LedgeVisual" parent="." instance=ExtResource("1_ledge")]
+
+[node name="LedgePlatform" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LedgePlatform"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_ledge")
+
+[node name="RunStart" type="Marker2D" parent="."]
+
+[node name="JumpZone" type="Marker2D" parent="."]
+position = Vector2(80, 0)

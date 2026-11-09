@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://crev2inf1u6xe"]
+
+[ext_resource type="Script" uid="uid://dn12u7ocbrg15" path="res://ui/screens/level_selection/main_menu.gd" id="1_06t4h"]
+
+[node name="Main_Menu" type="Control" unique_id=935774633]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1427023053]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.92, 0.89, 0.78, 1)
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1686985959]
+layout_mode = 0
+offset_left = 383.27573
+offset_top = 255.09358
+offset_right = 771.27576
+offset_bottom = 447.09357
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=366197780]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "CHỌN MỨC ĐỘ TẬP LUYỆN
+"
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=1500377683]
+layout_mode = 2
+text = "Mức 1: Tốc độ 1.0x"
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=1704879125]
+layout_mode = 2
+text = "Mức 2: Tốc độ 1.5x"
+
+[node name="Button3" type="Button" parent="VBoxContainer" unique_id=13191957]
+layout_mode = 2
+text = "Mức 3: Tốc độ 2.0x"
+
+[node name="BackButton" type="Button" parent="." unique_id=350083577]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 50.0
+offset_right = 189.0
+offset_bottom = 86.0
+theme_override_font_sizes/font_size = 20
+text = "< Quay lại"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

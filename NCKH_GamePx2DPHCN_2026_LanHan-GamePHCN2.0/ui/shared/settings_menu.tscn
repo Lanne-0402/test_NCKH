@@ -1,0 +1,101 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/shared/settings_menu.gd" id="1"]
+
+[node name="SettingsMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+script = ExtResource("1")
+
+[node name="Overlay" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+
+[node name="Center" type="CenterContainer" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="Overlay/Center"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+texture_filter = 1
+
+[node name="Margin" type="MarginContainer" parent="Overlay/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="Contents" type="VBoxContainer" parent="Overlay/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Overlay/Center/Panel/Margin/Contents"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "CÀI ĐẶT"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Overlay/Center/Panel/Margin/Contents"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Màn chơi đang tạm dừng"
+horizontal_alignment = 1
+
+[node name="Divider" type="HSeparator" parent="Overlay/Center/Panel/Margin/Contents"]
+layout_mode = 2
+
+[node name="VolumeLabel" type="Label" parent="Overlay/Center/Panel/Margin/Contents"]
+layout_mode = 2
+text = "Âm lượng tổng: 100%"
+
+[node name="Volume" type="HSlider" parent="Overlay/Center/Panel/Margin/Contents"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+max_value = 100.0
+value = 100.0
+
+[node name="Mute" type="CheckButton" parent="Overlay/Center/Panel/Margin/Contents"]
+layout_mode = 2
+text = "Tắt âm thanh"
+
+[node name="Home" type="Button" parent="Overlay/Center/Panel/Margin/Contents"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "VỀ TRANG CHỦ"
+
+[node name="Camera" type="Button" parent="Overlay/Center/Panel/Margin/Contents"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "ĐIỀU CHỈNH CAMERA"
+
+[node name="MapSelection" type="Button" parent="Overlay/Center/Panel/Margin/Contents"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "CHỌN MAP CHƠI"
+
+[node name="Resume" type="Button" parent="Overlay/Center/Panel/Margin/Contents"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "TIẾP TỤC CHƠI"
+
+[node name="Confirm" type="ConfirmationDialog" parent="."]
+title = "Rời màn chơi?"
+size = Vector2i(460, 160)
+ok_button_text = "ĐỒNG Ý"
+cancel_button_text = "Ở LẠI"

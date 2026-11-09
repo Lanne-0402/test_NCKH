@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bolyu353r7fpf"]
+
+[ext_resource type="Script" uid="uid://cs65ca4t4bca8" path="res://maps/map_1/obstacle.gd" id="1_sl1jc"]
+[ext_resource type="PackedScene" path="res://maps/map_1/visuals/map_1_rock_visual.tscn" id="2_visual"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7wsd"]
+size = Vector2(68, 58)
+
+[node name="Obstacle" type="Area2D" unique_id=932632937]
+z_index = 8
+script = ExtResource("1_sl1jc")
+
+[node name="RockVisual" parent="." instance=ExtResource("2_visual")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1247815284]
+position = Vector2(0, -29)
+shape = SubResource("RectangleShape2D_s7wsd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

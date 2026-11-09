@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[node name="LedgeVisual" type="Node2D"]
+
+[node name="Platform" type="ColorRect" parent="."]
+offset_left = -90.0
+offset_top = -18.0
+offset_right = 90.0
+offset_bottom = 0.0
+color = Color(0.45, 0.40, 0.36, 1)
+
+[node name="EdgeHighlight" type="ColorRect" parent="."]
+offset_left = -86.0
+offset_top = -22.0
+offset_right = 86.0
+offset_bottom = -18.0
+color = Color(0.58, 0.52, 0.46, 1)
+
+[node name="Crack" type="Line2D" parent="."]
+points = PackedVector2Array(-40, -12, -10, -8, 20, -14, 55, -10)
+width = 3.0
+default_color = Color(0.28, 0.24, 0.22, 0.75)

@@ -1,0 +1,273 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://ui/shared/settings_menu.tscn" id="settings_menu"]
+[ext_resource type="Texture2D" path="res://ui/shared/settings_gear.svg" id="settings_gear"]
+[ext_resource type="Script" path="res://maps/map_4/main_level.gd" id="1_level"]
+[ext_resource type="Script" uid="uid://bq6x60e10vgp" path="res://core/exercise/exercise_session.gd" id="2_session"]
+[ext_resource type="Script" path="res://core/exercise/tracking_stability.gd" id="3_stability"]
+[ext_resource type="Script" path="res://maps/map_4/map4_controller.gd" id="4_controller"]
+[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://maps/shared/characters/player/player.tscn" id="5_player"]
+[ext_resource type="PackedScene" path="res://maps/map_4/visuals/map_4_background.tscn" id="6_background"]
+[ext_resource type="PackedScene" path="res://maps/map_4/visuals/map_4_climb_track.tscn" id="7_climb"]
+[ext_resource type="PackedScene" path="res://maps/map_4/placeholders/map_4_pose_guide.tscn" id="9_pose"]
+
+[node name="Map4MainLevel" type="Node2D"]
+script = ExtResource("1_level")
+
+[node name="ExerciseSession" type="Node" parent="."]
+script = ExtResource("2_session")
+
+[node name="TrackingStability" type="Node" parent="."]
+script = ExtResource("3_stability")
+
+[node name="Map4Controller" type="Node" parent="."]
+script = ExtResource("4_controller")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="ScrollingBackground" parent="World" instance=ExtResource("6_background")]
+
+[node name="Map4ClimbTrack" parent="World" instance=ExtResource("7_climb")]
+z_index = 5
+
+[node name="Player" parent="." instance=ExtResource("5_player")]
+z_index = 10
+position = Vector2(220, 320)
+
+[node name="FollowCamera" type="Camera2D" parent="Player"]
+position = Vector2(0, -80)
+
+[node name="SettingsMenu" parent="." instance=ExtResource("settings_menu")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HudBacking" type="ColorRect" parent="UI"]
+offset_right = 1152.0
+offset_bottom = 140.0
+mouse_filter = 2
+color = Color(0.92, 0.89, 0.78, 0.93)
+
+[node name="HudLeftBacking" type="ColorRect" parent="UI"]
+offset_top = 140.0
+offset_right = 276.0
+offset_bottom = 210.0
+mouse_filter = 2
+color = Color(0.92, 0.89, 0.78, 0.93)
+
+[node name="HudRightBacking" type="ColorRect" parent="UI"]
+offset_left = 780.0
+offset_top = 140.0
+offset_right = 1152.0
+offset_bottom = 210.0
+mouse_filter = 2
+color = Color(0.92, 0.89, 0.78, 0.93)
+
+[node name="PhaseLabel" type="Label" parent="UI"]
+offset_left = 24.0
+offset_top = 116.0
+offset_right = 264.0
+offset_bottom = 148.0
+theme_override_font_sizes/font_size = 22
+text = "HIỆP: 1/2"
+
+[node name="RepLabel" type="Label" parent="UI"]
+offset_left = 288.0
+offset_top = 20.0
+offset_right = 768.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 22
+text = "LẦN: 0/5"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="UI"]
+offset_left = 792.0
+offset_top = 20.0
+offset_right = 1132.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 22
+text = "TRẠNG THÁI: CHỜ"
+horizontal_alignment = 1
+
+[node name="HeartsLabel" type="Label" parent="UI"]
+offset_left = 792.0
+offset_top = 60.0
+offset_right = 1132.0
+offset_bottom = 90.0
+theme_override_colors/font_color = Color(0.85, 0.12, 0.16, 1)
+theme_override_font_sizes/font_size = 18
+text = "ỔN ĐỊNH: ♥ ♥ ♥"
+horizontal_alignment = 1
+
+[node name="ClimbProgressLabel" type="Label" parent="UI"]
+offset_left = 24.0
+offset_top = 78.0
+offset_right = 264.0
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(0.16, 0.14, 0.18, 1)
+theme_override_font_sizes/font_size = 18
+text = "BẬC ĐÃ LEO: 0/10"
+
+[node name="FeedbackLabel" type="Label" parent="UI"]
+offset_left = 288.0
+offset_top = 76.0
+offset_right = 768.0
+offset_bottom = 136.0
+theme_override_colors/font_color = Color(0.05, 0.05, 0.05, 1)
+theme_override_font_sizes/font_size = 20
+text = "Đang chuẩn bị Map 4..."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HoldPanel" type="Control" parent="UI"]
+offset_left = 348.0
+offset_top = 500.0
+offset_right = 708.0
+offset_bottom = 564.0
+
+[node name="Backing" type="ColorRect" parent="UI/HoldPanel"]
+offset_left = -12.0
+offset_top = -8.0
+offset_right = 372.0
+offset_bottom = 72.0
+mouse_filter = 2
+color = Color(0.92, 0.89, 0.78, 0.95)
+
+[node name="HoldLabel" type="Label" parent="UI/HoldPanel"]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 18
+text = "GIỮ: 0.0/5.0 GIÂY"
+horizontal_alignment = 1
+
+[node name="HoldBar" type="ProgressBar" parent="UI/HoldPanel"]
+layout_mode = 0
+offset_top = 31.0
+offset_right = 360.0
+offset_bottom = 58.0
+show_percentage = false
+
+[node name="SettingsButton" type="Button" parent="UI"]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 76.0
+offset_bottom = 72.0
+tooltip_text = "Cài đặt"
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("settings_gear")
+icon_alignment = 1
+
+[node name="InstructionPanel" type="PanelContainer" parent="UI"]
+offset_left = 250.0
+offset_top = 48.0
+offset_right = 905.0
+offset_bottom = 594.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/InstructionPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 34
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 34
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InstructionPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="Title" type="Label" parent="UI/InstructionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 29
+text = "MAP 4: LEO VÁCH ĐÁ CAO"
+horizontal_alignment = 1
+
+[node name="ExerciseName" type="Label" parent="UI/InstructionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.32, 0.62, 1)
+theme_override_font_sizes/font_size = 20
+text = "Vận động khớp vai - hai tay ôm đầu"
+horizontal_alignment = 1
+
+[node name="Map4PoseGuide" parent="UI/InstructionPanel/MarginContainer/VBoxContainer" instance=ExtResource("9_pose")]
+
+[node name="Instructions" type="Label" parent="UI/InstructionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "1. Cánh tay dang hai bên, cẳng tay gập 90° hướng lên.\n2. Hai bàn tay đưa ra sau đầu.\n3. Chạy trên bậc đá ~5 giây để tới vùng nhảy an toàn.\n4. Khép khuỷu về giữa và giữ đúng tư thế 5 giây để nhảy lên bậc kế.\n5. Hoàn thành 2 hiệp × 5 bậc; nghỉ 30 giây giữa hiệp."
+autowrap_mode = 2
+
+[node name="SafetyNote" type="Label" parent="UI/InstructionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.18, 0.10, 1)
+theme_override_font_sizes/font_size = 15
+text = "Vùng nhảy luôn dừng an toàn trên bậc đá. Mất tracking sẽ tự động tạm dừng."
+horizontal_alignment = 1
+
+[node name="StartExerciseButton" type="Button" parent="UI/InstructionPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "TÔI ĐÃ SẴN SÀNG"
+
+[node name="CountdownLabel" type="Label" parent="UI"]
+offset_left = 425.0
+offset_top = 210.0
+offset_right = 730.0
+offset_bottom = 340.0
+theme_override_colors/font_color = Color(1, 0.82, 0.12, 1)
+theme_override_font_sizes/font_size = 58
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestLabel" type="Label" parent="UI"]
+offset_left = 380.0
+offset_top = 215.0
+offset_right = 775.0
+offset_bottom = 315.0
+theme_override_colors/font_color = Color(1, 0.85, 0.15, 1)
+theme_override_font_sizes/font_size = 30
+text = "NGHỈ: 30 GIÂY"
+horizontal_alignment = 1
+
+[node name="DebugHelp" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 600.0
+offset_right = 810.0
+offset_bottom = 636.0
+theme_override_colors/font_color = Color(0.97, 0.95, 0.86, 1)
+theme_override_colors/font_shadow_color = Color(0.10, 0.12, 0.08, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 14
+text = ""
+
+[node name="ResultPanel" type="PanelContainer" parent="UI"]
+offset_left = 350.0
+offset_top = 120.0
+offset_right = 805.0
+offset_bottom = 530.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ResultPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ResultPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="ResultLabel" type="Label" parent="UI/ResultPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "HOÀN THÀNH MAP 4"
+horizontal_alignment = 1
+
+[node name="ResultButton" type="Button" parent="UI/ResultPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "TRỞ VỀ CHỌN MỨC"
+
+[connection signal="pressed" from="UI/InstructionPanel/MarginContainer/VBoxContainer/StartExerciseButton" to="." method="_on_start_exercise_button_pressed"]
+[connection signal="pressed" from="UI/ResultPanel/MarginContainer/VBoxContainer/ResultButton" to="." method="_on_result_button_pressed"]

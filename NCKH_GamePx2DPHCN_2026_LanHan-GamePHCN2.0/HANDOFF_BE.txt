@@ -1,0 +1,75 @@
+BÀN GIAO FRONTEND GODOT CHO BACKEND — 14/10/2026
+
+Mở project.godot bằng Godot 4.7.2. Chạy F6 từ scene riêng hoặc F5 từ Home.
+Hiện PoseInput vẫn là mock_pose_provider.gd; chưa có kết nối camera/MediaPipe/backend thật được xác minh.
+
+CẤU TRÚC GIỮ LẠI
+core/autoload/global.gd: cấp độ, cấu hình âm thanh, lưu kết quả buổi tập.
+core/pose/pose_provider.gd: interface và kiểm tra message; contract_version 1.0.0 trong code.
+core/pose/mock_pose_provider.gd: mô phỏng dữ liệu và phím debug.
+core/exercise/: vòng đời buổi tập, progress/hold/rest, mất tracking, kết quả.
+maps/map_1 ... map_5/: scene chính, controller và tài nguyên riêng.
+maps/shared/: nhân vật MK2, thế giới, vật phẩm dùng chung.
+ui/screens/: Home, calibration, map selection, level selection, history.
+ui/shared/: Settings, hướng dẫn hai góc nhìn, bố cục gameplay.
+assets/: tài nguyên chọn lọc; mk2_lab là tên lịch sử nhưng ĐANG ĐƯỢC DÙNG, không xóa.
+tests/core/ và tests/maps/: kiểm thử hồi quy còn giữ để BE kiểm tra tích hợp.
+tools/: công cụ cắt/xuất asset. Đọc tham số --source-assets trước khi chạy; không chạy tự động.
+docs/licenses/: bản sao giấy phép nguồn tìm thấy; license MK2 và Kenney vẫn ở assets.
+JSON_Contract.docx: hợp đồng do nhóm cung cấp, giữ nguyên.
+gamescripts_DesignGameplay.docx: kịch bản do nhóm cung cấp, giữ nguyên.
+
+ĐIỂM TÍCH HỢP BE
+1. Đối chiếu JSON_Contract.docx với core/pose/pose_provider.gd và dữ liệu mẫu mock.
+   Lượt dọn thư mục này không chỉnh hoặc xác nhận nội dung DOCX đồng bộ với code.
+2. Viết provider thật theo interface PoseProvider, phát các signal như mock:
+   connection_changed, tracking_status_changed, calibration_progressed/finished,
+   pose_frame_received, exercise_event_received, provider_error_received.
+3. Cài open/close connection, calibration, start/pause/resume/stop exercise.
+4. Sau khi test, đổi autoload PoseInput trong project.godot sang provider thật.
+   Không thay đường dẫn autoload khi chưa có implementation hoạt động.
+5. ExerciseSession quản lý số lần, hiệp, nghỉ, lọc sự kiện; provider phát dữ liệu nhận diện.
+6. Kiểm tra sai session_id, mất/reconnect, tracking thiếu người/thiếu phần cơ thể,
+   giữ bị gián đoạn, pause Settings/hướng dẫn, đổi map, kết quả chỉ lưu một lần.
+7. Home và các thẻ chọn map chỉ là demo độc lập, KHÔNG dùng để kiểm tra kết nối BE.
+8. Tim/Ổn định đang tắt qua TrackingStability.ENABLED=false. Không bật lại ngoài ý muốn.
+9. Hoạt ảnh gameplay khác động tác hướng dẫn; không suy ra góc chấm điểm từ sprite.
+
+DỮ LIỆU NGƯỜI CHƠI
+user://player_progress.json thuộc Godot user data, không nằm trong project.
+Không gửi dữ liệu buổi tập thực cho bên khác khi chưa được phép.
+Kiểm thử dùng --no-save; test persistence dùng --save-path trỏ file test riêng.
+
+KIỂM THỬ
+Ví dụ PowerShell, thay GODOT bằng đường dẫn executable:
+& GODOT --headless --path PROJECT res://tests/core/navigation_flow_test.tscn -- --no-save
+Các scene kiểm tra hữu ích:
+tests/core/resource_paths_smoke_test.tscn
+tests/core/settings_menu_smoke_test.tscn
+tests/core/navigation_flow_test.tscn
+tests/core/presentation_integration_test.tscn
+tests/core/dual_view_test.tscn
+tests/core/gameplay_actions_test.tscn
+tests/core/upper_diagonals_test.tscn
+tests/core/home_demo_test.tscn
+tests/maps/map_1/sprint3_smoke_test.tscn
+tests/maps/map_2/map2_smoke_test.tscn (tương tự map_3, map_4, map_5)
+
+NHỮNG GÌ ĐÃ TÁCH RA NGOÀI
+Kho: D:/-NCKH-GamePixel2D_PHCN/HANDOFF_ARCHIVE_20261014
+manifest.csv ghi đường dẫn tương đối, dung lượng, SHA256 của từng file.
+- Các bộ nguồn/ứng viên: itch.io, IconGodotNode, Runner1-Updated, FreeCharactersAnimationsAssetPack,
+  background, font; không thấy tham chiếu trực tiếp từ runtime/kiểm thử đang giữ.
+- PSRC và prototype/lab cũ trong tests/visual; bản thử xiên cũ đã được thay bởi upper_diagonals_test.
+- Screenshot tests/visual_output, dữ liệu JSON test và cache .godot cũ.
+- Báo cáo cấu trúc/asset lịch sử, icon settings_app_icon không được tham chiếu.
+Giữ nguyên lịch sử Git, không commit/push/reset. Thay đổi dọn dẹp sẽ hiện là deleted trong Git.
+Không xóa kho lưu: chứa bản nguồn chỉnh art và tài liệu lịch sử.
+Khôi phục từng file bằng đường dẫn trong manifest; tránh chép đè toàn bộ project.
+
+LƯU Ý BÀN GIAO
+Không gửi .git, .godot, kho lưu ngoài project, output ảnh hoặc save thực trong gói ZIP.
+Không xóa folder tên placeholders: một số scene vẫn dùng hoặc còn được test tham chiếu.
+Giấy phép cho các pack không có văn bản license tại chỗ cần xác minh trước khi phát hành.
+Source assets không được load hết vào RAM lúc chơi; dọn chúng chủ yếu giảm import,
+quét filesystem, dung lượng bàn giao và nhiễu repo, không bảo đảm tăng FPS.

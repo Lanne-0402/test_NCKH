@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/shared/hand_cursor_layer.gd" id="1_hand"]
+
+[node name="HandCursorLayer" type="CanvasLayer"]
+process_mode = 3
+layer = 120
+script = ExtResource("1_hand")
+
+[node name="CursorVisual" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1.0
+offset_bottom = 1.0
+mouse_filter = 2

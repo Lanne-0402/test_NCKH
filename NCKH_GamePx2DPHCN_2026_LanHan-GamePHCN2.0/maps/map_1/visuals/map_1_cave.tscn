@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/map_1/goal/stone_mine_entrance.png" id="1_cave"]
+
+[node name="Map1EndCave" type="Node2D"]
+
+[node name="Shadow" type="Polygon2D" parent="."]
+position = Vector2(0, 3)
+color = Color(0.06, 0.05, 0.04, 0.35)
+polygon = PackedVector2Array(-78, 0, -62, -9, 62, -9, 78, 0)
+
+[node name="Entrance" type="Sprite2D" parent="."]
+position = Vector2(0, -64)
+scale = Vector2(1, 1)
+texture_filter = 1
+texture = ExtResource("1_cave")
+
+[node name="CaveLabel" type="Label" parent="."]
+offset_left = -82.0
+offset_top = -166.0
+offset_right = 82.0
+offset_bottom = -138.0
+theme_override_colors/font_color = Color(0.95, 0.84, 0.48, 1)
+theme_override_colors/font_shadow_color = Color(0.08, 0.06, 0.03, 0.9)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 18
+text = "LỐI RA"
+horizontal_alignment = 1

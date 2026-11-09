@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/map_1/obstacles/rock_base.png" id="1_rock"]
+
+[node name="RockVisual" type="Node2D"]
+
+[node name="Shadow" type="Polygon2D" parent="."]
+position = Vector2(0, 3)
+color = Color(0.08, 0.07, 0.05, 0.38)
+polygon = PackedVector2Array(-34, 0, -26, -6, 26, -6, 34, 0)
+
+[node name="Base" type="Sprite2D" parent="."]
+position = Vector2(0, -40)
+texture_filter = 1
+texture = ExtResource("1_rock")

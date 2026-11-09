@@ -1,0 +1,46 @@
+# Godot editor cache & imports
+.godot/
+*.import
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+__MACOSX/
+
+# Python cache & build
+__pycache__/
+*.py[cod]
+*$py.class
+*.spec
+build/
+dist/
+*.egg-info/
+.venv/
+env/
+venv/
+
+# Temporary image/editor backups
+*.png~
+*.aseprite~
+*.tmp
+*.bak
+
+# Generated test captures/profiles
+tests/visual_output/
+tests/visual/captures/
+
+# Backup folders
+-NCKH-*/
+*-backup*/
+
+# Exported Releases & Portable Bundles
+GamePHCN_Portable/
+GamePHCN_ThuNghiem.zip
+*.zip
+
+# Security & Database Credentials
+cloud_config.json
+mongodb_config.json
+.env
+*.key
+

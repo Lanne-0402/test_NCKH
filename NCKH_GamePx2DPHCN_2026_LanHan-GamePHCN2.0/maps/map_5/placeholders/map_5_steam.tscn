@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[node name="Steam" type="Node2D"]
+
+[node name="PuffA" type="Polygon2D" parent="."]
+modulate = Color(1, 1, 1, 0.45)
+color = Color(0.92, 0.96, 1.0, 0.55)
+polygon = PackedVector2Array(-18, 0, 0, -28, 18, 0, 0, 16)
+
+[node name="PuffB" type="Polygon2D" parent="."]
+position = Vector2(36, -8)
+modulate = Color(1, 1, 1, 0.35)
+color = Color(0.92, 0.96, 1.0, 0.50)
+polygon = PackedVector2Array(-14, 0, 0, -22, 14, 0, 0, 12)
+
+[node name="PuffC" type="Polygon2D" parent="."]
+position = Vector2(-34, -6)
+modulate = Color(1, 1, 1, 0.35)
+color = Color(0.92, 0.96, 1.0, 0.50)
+polygon = PackedVector2Array(-14, 0, 0, -22, 14, 0, 0, 12)

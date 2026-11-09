@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[node name="Map5Background" type="Node2D"]
+z_index = -20
+
+[node name="Sky" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 421.0
+mouse_filter = 2
+color = Color(0.78, 0.86, 0.92, 1)
+
+[node name="Mountains" type="Polygon2D" parent="."]
+color = Color(0.55, 0.62, 0.68, 1)
+polygon = PackedVector2Array(0, 320, 0, 210, 180, 160, 360, 230, 540, 150, 720, 220, 900, 165, 1152, 240, 1152, 320)
+
+[node name="Trees" type="Polygon2D" parent="."]
+color = Color(0.32, 0.48, 0.38, 1)
+polygon = PackedVector2Array(0, 320, 0, 280, 90, 250, 180, 290, 270, 255, 360, 285, 450, 250, 540, 292, 630, 258, 720, 288, 810, 252, 900, 295, 990, 260, 1080, 290, 1152, 275, 1152, 320)
+
+[node name="Ground" type="ColorRect" parent="."]
+offset_top = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+color = Color(0.42, 0.38, 0.34, 1)

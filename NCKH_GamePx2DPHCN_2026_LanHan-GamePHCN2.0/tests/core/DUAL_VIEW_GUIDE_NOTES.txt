@@ -1,0 +1,41 @@
+HUONG DAN HAI GOC NHIN MK2 - 2026-10-10
+
+Nguon: gamescripts_DesignGameplay.docx, muc I va III.
+Pham vi: man hinh huong dan truoc map va xem lai bang phim U, ca 5 map.
+Khong doi JSON contract, nguong cham diem, thoi gian giu that hay nhan vat gameplay.
+
+Chuyen dong:
+1. Khuyu gap 90 do, vai va khuyu lui ve sau. Khong nang hai tay qua dau.
+2. Canh tay dang, khuyu gap 90 do; duoi va nang ve dau. Co moc tuong phia sau.
+3. Hai tay phia truoc, ban tay gan nhau; mo canh tay sang hai ben.
+   Ten bai trong tai lieu la "khep ngang" nhung mo ta cu the la dang tay ra.
+   Minh hoa theo mo ta chi tiet, khong suy ra dong tac nguoc tu ten bai.
+4. Ban tay co dinh sau dau; khuyu tu hai ben di ve phia truoc va duong giua.
+5. Canh tay qua nguc, GIUA CANG TAY doi dien do phan canh tay tren, tranh khuyu.
+   Minh hoa tay trai truoc, roi doi tay phai. Khong lat huong mat cua goc ngang.
+
+Ky thuat:
+- guide_pose.gd: toa do khop chung 3D (X ngang, Y xuong, Z truoc), hai camera
+  chieu truc giao. Hai goc khong co hai bo animation doc lap.
+- guide_actor.gd: tay dung sprite Mk2 goc. Dau/than nghieng duoc dung them bang
+  hinh pixel trong code, khong phai sprite nghieng co san cua tac gia Mk2.
+- Moi doan tay dai 14 don vi trong rig. Day la ty le minh hoa, KHONG phai
+  thong so y khoa hay goc ROM bat buoc cho nguoi tap.
+- Khop phai vang, trai xanh net dut/vong tron, ke ca khi bi che khuat.
+- Xem truoc 15 giay duoc rut gon; chu van ghi thoi gian bai that 5 giay hoac
+  30 giay, nghi 30 giay va doi ben. Khong bien preview thanh buoi tap that.
+- Chi dung nua than tren cho huong dan; khong tao bo animation di/chay ngang.
+
+Kiem thu:
+- dual_view_test: 1505 moc thoi gian, do dai doan tay, phep chieu hai goc,
+  chieu di chuyen, khuyu 90 do map 1, ban tay co dinh map 4, cho do map 5,
+  doi ben, bien khung, dung khi Settings, tu bat dau va xem lai/dem nguoc.
+- Chup 25 anh (5 moc x 5 map) bang renderer Compatibility 1152x648;
+  kiem tra bang mat cac tu the chuan bi, giu va doi ben.
+- Presentation integration, Settings, navigation/tracking, art layout,
+  smoke tests map 1-5: PASS.
+
+Gioi han:
+Kiem thu ky thuat va doi chieu mo ta khong thay the duyet chuyen mon PHCN.
+Ban tay pixel chua mo ta chi tiet ngon tay/long ban tay. Phan xoay ngoai,
+cam giac kep ba vai va muc do cang can nguoi phu trach chuyen mon duyet.

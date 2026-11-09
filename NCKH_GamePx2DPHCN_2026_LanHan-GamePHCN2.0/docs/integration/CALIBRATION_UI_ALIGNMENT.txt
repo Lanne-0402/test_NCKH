@@ -1,0 +1,26 @@
+ĐỐI CHIẾU CAMERA / HIỆU CHỈNH — 23/10/2026
+Nguồn: bản NCKH_GamePx2DPHCN_2026_LanHan-GamePHCN2.0 trong Downloads.
+Không sửa bản nguồn, không chạy backend/webcam; project chính vẫn autoload MockPoseProvider.
+
+main.py: camera_frame là JPEG/base64, rộng 480, giữ tỷ lệ, đã mirror và vẽ khớp.
+pose_provider.gd của bản nguồn: giải mã rồi phát camera_frame_received(image: Image).
+server_hello.camera_available luôn True: không thể dùng riêng trường này để khẳng định camera đang hoạt động.
+UI chính nay nhận signal Image nếu provider có hỗ trợ. Giữ tỷ lệ ảnh, tái sử dụng texture, không vẽ khớp hoặc mirror lần hai.
+BE/ảnh mới/tracking là ba điều kiện khác nhau. UI coi ảnh quá 3 giây là cũ.
+Chưa đưa phần giải mã JPEG/WebSocket/provider thật vào project chính.
+
+exercises_logic.py process_calibration:
+progress, elapsed_ms, duration_ms là thời gian thu mẫu 5 giây, không phải mức đạt biên độ.
+BE vẫn đếm khi tracking sai; mock hiện tạm dừng, UI phân biệt hai trường hợp.
+current_rom_value của scapular_retraction = combined_score * 90, là chỉ số quy đổi chứ không phải góc khớp trực tiếp.
+max_rom.left/right đang cùng nhận current_val với combined, không phải phép đo hai bên độc lập.
+Cả hai bản đang hiệu chỉnh cố định scapular_retraction trước chọn map.
+confidence 0.95/0.30 trong main.py là mức gán theo trạng thái, không phải xác suất đã được kiểm chứng.
+MOVE_BACK/MOVE_CLOSER/CENTER_YOUR_BODY có thể đi cùng tracking=true; vẫn cần hiện lời nhắc.
+Không có camera lại dùng feedback LIGHTING_TOO_LOW; BE cần tách mã này.
+
+Cần thống nhất trước tích hợp thật:
+- Hiệu chỉnh từng bài hay dùng chung; ý nghĩa/đơn vị và tiêu chí mẫu hợp lệ.
+- Xử lý hủy/đo lại/session, camera/tracking bị cũ.
+- Kiểm thử end-to-end bằng thiết bị thật và duyệt chuyên môn.
+Test hiện dùng Image tổng hợp trong bộ nhớ, không phải camera thật.

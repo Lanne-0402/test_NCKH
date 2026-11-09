@@ -1,0 +1,20 @@
+ART / UI VALIDATION — 2026-10-02
+Engine: Godot 4.7.2 stable, local Windows.
+Headless tests use --no-save; persistence uses res://tests/art_profile.json (isolated).
+PASS ART_LAYOUT_TEST (Home Settings, 5 maps, foot pivot, collider, ground, ACTIVE state, menu height)
+PASS RESOURCE_PATHS_SMOKE_TEST
+PASS SETTINGS_MENU_SMOKE_TEST (5 maps, navigation confirmation, pause)
+PASS NAVIGATION_CALIBRATION_TRACKING_ALL_MAPS
+PASS SPRINT_3_MAP_1_SMOKE_TEST
+PASS MAP_2_SMOKE_TEST
+PASS MAP_3_SMOKE_TEST
+PASS MAP_4_SMOKE_TEST
+PASS MAP_5_SMOKE_TEST
+PASS PERSISTENCE_AND_INTERRUPTION_FLOW
+PASS PERSISTENCE_RESTART_AND_RECOVERY
+Rendered capture: OpenGL 3.3 Compatibility / Intel UHD.
+17 screenshots captured: Home + Home Settings; intro/play/Settings for each map.
+Source project files checked against staged original versions before installation.
+Sandbox headless runs report unavailable Windows root certificate store; this did not prevent local tests.
+No camera/MediaPipe/backend-real verification. No .exe export.
+Known art gaps and provisional replacements: see ASSET_AUDIT.md.

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c7lsyepc5f87u"]
+
+[ext_resource type="Script" path="res://tests/core/test_rom_chart_adapter.gd" id="1_test"]
+
+[node name="TestRomChartAdapter" type="Node"]
+script = ExtResource("1_test")

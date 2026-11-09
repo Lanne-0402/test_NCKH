@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://maps/map_4/placeholders/map_4_step.tscn" id="1_step"]
+[ext_resource type="PackedScene" path="res://maps/map_4/placeholders/map_4_summit_visual.tscn" id="2_summit"]
+
+[node name="Map4ClimbTrack" type="Node2D"]
+
+[node name="Step_00" parent="." instance=ExtResource("1_step")]
+position = Vector2(220, 320)
+
+[node name="Step_01" parent="." instance=ExtResource("1_step")]
+position = Vector2(300, 296)
+
+[node name="Step_02" parent="." instance=ExtResource("1_step")]
+position = Vector2(380, 272)
+
+[node name="Step_03" parent="." instance=ExtResource("1_step")]
+position = Vector2(460, 248)
+
+[node name="Step_04" parent="." instance=ExtResource("1_step")]
+position = Vector2(540, 224)
+
+[node name="Step_05" parent="." instance=ExtResource("1_step")]
+position = Vector2(620, 200)
+
+[node name="Step_06" parent="." instance=ExtResource("1_step")]
+position = Vector2(700, 176)
+
+[node name="Step_07" parent="." instance=ExtResource("1_step")]
+position = Vector2(780, 152)
+
+[node name="Step_08" parent="." instance=ExtResource("1_step")]
+position = Vector2(860, 128)
+
+[node name="Step_09" parent="." instance=ExtResource("1_step")]
+position = Vector2(940, 104)
+
+[node name="Step_10" parent="." instance=ExtResource("1_step")]
+position = Vector2(1020, 80)
+
+[node name="SummitVisual" parent="Step_10" instance=ExtResource("2_summit")]
+visible = false
+position = Vector2(0, -8)

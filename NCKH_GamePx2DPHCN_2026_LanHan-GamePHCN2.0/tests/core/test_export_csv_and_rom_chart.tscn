@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://test_csv_rom_001"]
+
+[ext_resource type="Script" path="res://tests/core/test_export_csv_and_rom_chart.gd" id="1_test"]
+
+[node name="TestExportCSVAndRomChart" type="Node"]
+script = ExtResource("1_test")

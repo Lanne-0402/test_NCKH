@@ -1,0 +1,262 @@
+[gd_scene format=3 uid="uid://bm22x6r7oj4tb"]
+
+[ext_resource type="PackedScene" path="res://ui/shared/settings_menu.tscn" id="settings_menu"]
+[ext_resource type="Texture2D" path="res://ui/shared/settings_gear.svg" id="settings_gear"]
+[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://maps/shared/characters/player/player.tscn" id="1_6614m"]
+[ext_resource type="Script" uid="uid://ciw067ut2j3og" path="res://maps/map_1/main_level.gd" id="1_bhu08"]
+[ext_resource type="PackedScene" path="res://maps/map_1/visuals/map_1_ground.tscn" id="2_bhu08"]
+[ext_resource type="Script" uid="uid://bq6x60e10vgp" path="res://core/exercise/exercise_session.gd" id="6_session"]
+[ext_resource type="Script" uid="uid://dap5lx3mrlpcp" path="res://maps/map_1/map1_controller.gd" id="7_map1"]
+[ext_resource type="PackedScene" path="res://maps/map_1/visuals/map_1_background.tscn" id="8_background"]
+[ext_resource type="PackedScene" path="res://maps/map_1/visuals/map_1_cave.tscn" id="9_cave"]
+[ext_resource type="PackedScene" path="res://maps/map_1/placeholders/map_1_pose_guide.tscn" id="10_pose"]
+[ext_resource type="Script" path="res://core/exercise/tracking_stability.gd" id="11_stability"]
+[ext_resource type="Theme" path="res://assets/shared/ui/game_theme.tres" id="12_theme"]
+
+[node name="Main_Level" type="Node2D" unique_id=2095594473]
+script = ExtResource("1_bhu08")
+
+[node name="ExerciseSession" type="Node" parent="." unique_id=1575092949]
+script = ExtResource("6_session")
+
+[node name="Map1Controller" type="Node" parent="." unique_id=1809487750]
+script = ExtResource("7_map1")
+
+[node name="TrackingStability" type="Node" parent="."]
+script = ExtResource("11_stability")
+
+[node name="Player" parent="." unique_id=1594107395 instance=ExtResource("1_6614m")]
+z_index = 10
+position = Vector2(285, 320)
+
+[node name="Ground" parent="." unique_id=1022618819 instance=ExtResource("2_bhu08")]
+position = Vector2(0, 320)
+
+[node name="ScrollingBackground" parent="." instance=ExtResource("8_background")]
+
+[node name="SpawnPosition" type="Marker2D" parent="." unique_id=1911864519]
+position = Vector2(908, 320)
+rotation = -0.02180247
+gizmo_extents = 50.0
+
+[node name="Map1ActionZone" type="Marker2D" parent="."]
+position = Vector2(540, 320)
+gizmo_extents = 45.0
+
+[node name="Map1EndCave" parent="." instance=ExtResource("9_cave")]
+visible = false
+position = Vector2(1180, 320)
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=2070196010]
+wait_time = 2.0
+autostart = true
+
+[node name="SettingsMenu" parent="." instance=ExtResource("settings_menu")]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1675191219]
+
+[node name="HudBacking" type="ColorRect" parent="UI"]
+offset_right = 1152.0
+offset_bottom = 210.0
+mouse_filter = 2
+color = Color(0.92, 0.89, 0.78, 0.93)
+
+[node name="ScoreLabel" type="Label" parent="UI" unique_id=1287988699]
+offset_left = 792.0
+offset_top = 20.0
+offset_right = 1132.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 22
+text = "TRẠNG THÁI: CHỜ"
+horizontal_alignment = 1
+
+[node name="LivesLabel" type="Label" parent="UI" unique_id=933845576]
+offset_left = 24.0
+offset_top = 116.0
+offset_right = 264.0
+offset_bottom = 148.0
+theme_override_font_sizes/font_size = 22
+text = "HIỆP: 1/2"
+
+[node name="StarScoreLabel" type="Label" parent="UI" unique_id=388191764]
+offset_left = 288.0
+offset_top = 20.0
+offset_right = 768.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 22
+text = "LẦN: 0/10"
+horizontal_alignment = 1
+
+[node name="FeedbackLabel" type="Label" parent="UI" unique_id=527090590]
+offset_left = 288.0
+offset_top = 76.0
+offset_right = 768.0
+offset_bottom = 136.0
+theme_override_colors/font_color = Color(0.05, 0.05, 0.05, 1)
+theme_override_font_sizes/font_size = 21
+text = "Đang chuẩn bị buổi tập..."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RockProgressLabel" type="Label" parent="UI" unique_id=433269885]
+offset_left = 24.0
+offset_top = 78.0
+offset_right = 264.0
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(0.2, 0.12, 0.05, 1)
+theme_override_font_sizes/font_size = 18
+text = "ĐÁ ĐÃ PHÁ: 0/20"
+
+[node name="HeartsLabel" type="Label" parent="UI" unique_id=2103831028]
+offset_left = 792.0
+offset_top = 60.0
+offset_right = 1132.0
+offset_bottom = 90.0
+theme_override_colors/font_color = Color(0.85, 0.12, 0.16, 1)
+theme_override_font_sizes/font_size = 18
+text = "ỔN ĐỊNH: ♥ ♥ ♥"
+horizontal_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="UI"]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 76.0
+offset_bottom = 72.0
+tooltip_text = "Cài đặt"
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("settings_gear")
+icon_alignment = 1
+
+[node name="InstructionPanel" type="PanelContainer" parent="UI"]
+offset_left = 250.0
+offset_top = 58.0
+offset_right = 905.0
+offset_bottom = 585.0
+texture_filter = 1
+theme = ExtResource("12_theme")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/InstructionPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 34
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 34
+theme_override_constants/margin_bottom = 28
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InstructionPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="UI/InstructionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16, 0.10, 0.04, 1)
+theme_override_font_sizes/font_size = 30
+text = "MAP 1: PHÁ CẢN MỞ ĐƯỜNG"
+horizontal_alignment = 1
+
+[node name="ExerciseName" type="Label" parent="UI/InstructionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.32, 0.62, 1)
+theme_override_font_sizes/font_size = 22
+text = "Bài tập ép hai vai ra sau"
+horizontal_alignment = 1
+
+[node name="Map1PoseGuide" parent="UI/InstructionPanel/MarginContainer/VBoxContainer" instance=ExtResource("10_pose")]
+
+[node name="Instructions" type="Label" parent="UI/InstructionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.08, 0.08, 0.08, 1)
+theme_override_font_sizes/font_size = 18
+text = "1. Đứng thẳng, vươn hai tay về trước (ROM < 40%) chuẩn bị.\n2. Khi tảng đá vào tầm chém, co ép chặt hai bả vai ra sau (ROM 100%).\n3. Giữ tư thế ép 0.7 giây để nhân vật chém tan tảng đá.\n4. Sau mỗi lần chém, bắt buộc đưa hai tay về trước (ROM < 40%) để mở khóa lần chém tiếp theo.\n5. Không giật vung tay quá nhanh để tránh chấn thương khớp."
+autowrap_mode = 2
+
+[node name="SafetyNote" type="Label" parent="UI/InstructionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.18, 0.10, 1)
+theme_override_font_sizes/font_size = 16
+text = "Nếu camera mất nhận diện, game sẽ tự động tạm dừng."
+horizontal_alignment = 1
+
+[node name="StartExerciseButton" type="Button" parent="UI/InstructionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 52)
+theme_override_font_sizes/font_size = 22
+text = "TÔI ĐÃ SẴN SÀNG"
+
+[node name="CountdownLabel" type="Label" parent="UI"]
+offset_left = 430.0
+offset_top = 210.0
+offset_right = 725.0
+offset_bottom = 340.0
+theme_override_colors/font_color = Color(1, 0.82, 0.12, 1)
+theme_override_colors/font_shadow_color = Color(0.08, 0.08, 0.08, 0.9)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 58
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestLabel" type="Label" parent="UI" unique_id=1731736263]
+offset_left = 385.0
+offset_top = 210.0
+offset_right = 770.0
+offset_bottom = 310.0
+theme_override_colors/font_color = Color(1, 0.85, 0.15, 1)
+theme_override_font_sizes/font_size = 30
+text = "NGHỈ: 30 GIÂY"
+horizontal_alignment = 1
+
+[node name="DebugHelp" type="Label" parent="UI" unique_id=999229676]
+offset_left = 20.0
+offset_top = 600.0
+offset_right = 740.0
+offset_bottom = 635.0
+theme_override_colors/font_color = Color(0.97, 0.95, 0.86, 1)
+theme_override_colors/font_shadow_color = Color(0.10, 0.12, 0.08, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 14
+text = ""
+
+[node name="ResultPanel" type="PanelContainer" parent="UI" unique_id=1314480756]
+offset_left = 365.0
+offset_top = 125.0
+offset_right = 790.0
+offset_bottom = 520.0
+texture_filter = 1
+theme = ExtResource("12_theme")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ResultPanel" unique_id=662963273]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ResultPanel/MarginContainer" unique_id=2092627267]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="ResultLabel" type="Label" parent="UI/ResultPanel/MarginContainer/VBoxContainer" unique_id=501128280]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "HOÀN THÀNH BUỔI TẬP"
+horizontal_alignment = 1
+
+[node name="ResultButton" type="Button" parent="UI/ResultPanel/MarginContainer/VBoxContainer" unique_id=572180277]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "TRỞ VỀ CHỌN MỨC"
+
+[node name="StarSpawnPosition" type="Marker2D" parent="." unique_id=1674646462]
+position = Vector2(786, 180)
+gizmo_extents = 0.0
+
+[node name="StarTimer" type="Timer" parent="." unique_id=1608472573]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="pressed" from="UI/ResultPanel/MarginContainer/VBoxContainer/ResultButton" to="." method="_on_result_button_pressed"]
+[connection signal="timeout" from="StarTimer" to="." method="_on_star_timer_timeout"]
+[connection signal="pressed" from="UI/InstructionPanel/MarginContainer/VBoxContainer/StartExerciseButton" to="." method="_on_start_exercise_button_pressed"]

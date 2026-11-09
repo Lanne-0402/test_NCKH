@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://ckudr8chj1kgo"]
+
+[ext_resource type="Script" uid="uid://80kl10p8d3vr" path="res://maps/shared/characters/player/player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" path="res://maps/shared/characters/player/placeholders/player_placeholder_visual.tscn" id="2_visual"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7wsd"]
+size = Vector2(42, 72)
+
+[node name="Player" type="CharacterBody2D" unique_id=1594107395]
+script = ExtResource("1_4flbx")
+
+[node name="Visuals" parent="." instance=ExtResource("2_visual")]
+
+[node name="Bone" type="CollisionShape2D" parent="." unique_id=98635658]
+position = Vector2(0, -36)
+shape = SubResource("RectangleShape2D_s7wsd")
+
+; Fixed world-space foot pivot. Future artwork uses 64x64 frames at 2x.
+[node name="FootAnchor" type="Marker2D" parent="."]
+
+[node name="SpriteFrame" type="ReferenceRect" parent="."]
+visible = false
+offset_left = -64.0
+offset_top = -128.0
+offset_right = 64.0
+mouse_filter = 2
+border_color = Color(0.3, 1, 0.6, 1)

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ci8camguide01"]
+
+[ext_resource type="Script" path="res://tests/core/test_camera_guide_overlay.gd" id="1_cgo"]
+
+[node name="TestCameraGuideOverlay" type="Node"]
+script = ExtResource("1_cgo")

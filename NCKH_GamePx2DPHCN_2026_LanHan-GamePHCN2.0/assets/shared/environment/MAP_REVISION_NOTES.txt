@@ -1,0 +1,22 @@
+2026-10-10 — Follow-up to screenshot review
+
+Map 1: removed stationary large moss rock from ForestDetails. Spawn alternates
+plain and large moss rocks; same approach, stop, break and pause lifecycle.
+Large variant uses 2x art and a private collider (does not mutate shared shape).
+Map 2: replaced small repeating stones with ONE large rock silhouette.
+Map 3: corrected both diagonal rotations and made offscreen approach/retreat
+positions collinear with the 45-degree inward normals. Four directions tested.
+Map 4: neutral evergreen goal shown from start, replacing hidden flag landmark.
+Removed repeated small rocks on ledges and cropped oversized background cliffs.
+Backgrounds: replaced opaque-edge forest strips with isolated distant trees at
+low opacity. Map 4 removes near bushes. Unique final background packs pending.
+
+New selected PNG: assets/map_4/goal/summit_tree.png
+Source: archived High Forest 2.3/Trees/Green-Tree.png, rect (0,1088,80,112).
+Reproduction: tools/export_summit_tree.gd. No source pack modification.
+Same license verification checkpoint as ENVIRONMENT_PASS_SOURCES.txt.
+
+Known limits: old main-game HUD backing still occludes upper scenery, especially
+Map 2 slab; new HUD/Mk2 integration remains separate. Shared ground/ledge and
+pool art still need final dedicated assets. Steam/energy wave remain prototypes.
+New backgrounds from user will supersede this cleanup, not assumed delivered.

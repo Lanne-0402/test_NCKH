@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://maps/shared/world/scrolling_background.gd" id="1_scroll"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/sky.png" id="2_sky"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/forest.png" id="3_forest"]
+[ext_resource type="Texture2D" path="res://assets/shared/environment/bushes.png" id="4_bushes"]
+
+[ext_resource type="Script" path="res://maps/shared/world/landscape.gd" id="5_landscape"]
+
+[node name="ScrollingBackground" type="Node2D"]
+z_index = -20
+texture_filter = 1
+script = ExtResource("1_scroll")
+far_scroll_speed = 18.0
+near_scroll_speed = 42.0
+
+[node name="Landscape" type="Node2D" parent="."]
+script = ExtResource("5_landscape")
+map_id = 2
+
+[node name="FarLayer" type="Node2D" parent="."]
+
+[node name="SegmentA" type="Node2D" parent="FarLayer"]
+
+[node name="ForestA" type="Sprite2D" parent="FarLayer/SegmentA"]
+position = Vector2(288, 64)
+scale = Vector2(2, 2)
+texture_filter = 1
+texture = ExtResource("3_forest")
+
+[node name="ForestB" type="Sprite2D" parent="FarLayer/SegmentA"]
+position = Vector2(864, 64)
+scale = Vector2(2, 2)
+texture_filter = 1
+texture = ExtResource("3_forest")
+
+[node name="SegmentB" type="Node2D" parent="FarLayer"]
+position = Vector2(1152, 0)
+
+[node name="ForestA" type="Sprite2D" parent="FarLayer/SegmentB"]
+position = Vector2(288, 64)
+scale = Vector2(2, 2)
+texture_filter = 1
+texture = ExtResource("3_forest")
+
+[node name="ForestB" type="Sprite2D" parent="FarLayer/SegmentB"]
+position = Vector2(864, 64)
+scale = Vector2(2, 2)
+texture_filter = 1
+texture = ExtResource("3_forest")
+
+[node name="NearLayer" type="Node2D" parent="."]
+
+[node name="SegmentA" type="Node2D" parent="NearLayer"]
+
+[node name="BushA" type="Sprite2D" parent="NearLayer/SegmentA"]
+position = Vector2(192, 200)
+scale = Vector2(3, 3)
+texture_filter = 1
+texture = ExtResource("4_bushes")
+
+[node name="BushB" type="Sprite2D" parent="NearLayer/SegmentA"]
+position = Vector2(576, 200)
+scale = Vector2(3, 3)
+texture_filter = 1
+texture = ExtResource("4_bushes")
+
+[node name="BushC" type="Sprite2D" parent="NearLayer/SegmentA"]
+position = Vector2(960, 200)
+scale = Vector2(3, 3)
+texture_filter = 1
+texture = ExtResource("4_bushes")
+
+[node name="SegmentB" type="Node2D" parent="NearLayer"]
+position = Vector2(1152, 0)
+
+[node name="BushA" type="Sprite2D" parent="NearLayer/SegmentB"]
+position = Vector2(192, 200)
+scale = Vector2(3, 3)
+texture_filter = 1
+texture = ExtResource("4_bushes")
+
+[node name="BushB" type="Sprite2D" parent="NearLayer/SegmentB"]
+position = Vector2(576, 200)
+scale = Vector2(3, 3)
+texture_filter = 1
+texture = ExtResource("4_bushes")
+
+[node name="BushC" type="Sprite2D" parent="NearLayer/SegmentB"]
+position = Vector2(960, 200)
+scale = Vector2(3, 3)
+texture_filter = 1
+texture = ExtResource("4_bushes")

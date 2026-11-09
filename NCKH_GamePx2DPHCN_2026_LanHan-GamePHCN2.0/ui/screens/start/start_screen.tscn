@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://bmcj6g2n8mabc"]
+
+[ext_resource type="Script" uid="uid://b1nnjcnmhayrm" path="res://ui/screens/start/start_screen.gd" id="1_ncxyx"]
+[ext_resource type="Texture2D" uid="uid://dkibpow1gyl7y" path="res://ui/shared/settings_gear.svg" id="2_settings_icon"]
+[ext_resource type="PackedScene" path="res://ui/shared/settings_menu.tscn" id="3_settings"]
+[ext_resource type="Texture2D" uid="uid://c0f8s174av4b2" path="res://assets/shared/environment/sky.png" id="4_sky"]
+[ext_resource type="Texture2D" uid="uid://qimkidfj2gea" path="res://assets/shared/environment/forest.png" id="5_forest"]
+
+[node name="Start_Screen" type="Control" unique_id=1331584676]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ncxyx")
+
+[node name="ColorRect" type="TextureRect" parent="." unique_id=1346953846]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_sky")
+
+[node name="Forest" type="TextureRect" parent="." unique_id=1378051296]
+texture_filter = 1
+texture_repeat = 2
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 256.0
+scale = Vector2(2, 2)
+mouse_filter = 2
+texture = ExtResource("5_forest")
+stretch_mode = 1
+
+[node name="SettingsMenu" parent="." unique_id=785240669 instance=ExtResource("3_settings")]
+trigger_path = NodePath("CanvasLayer/SettingsButton")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1476647068]
+
+[node name="Title" type="Label" parent="CanvasLayer" unique_id=1867754314]
+offset_left = 220.0
+offset_top = 78.0
+offset_right = 932.0
+offset_bottom = 146.0
+theme_override_colors/font_color = Color(1, 0.94, 0.75, 1)
+theme_override_colors/font_shadow_color = Color(0.08, 0.12, 0.08, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 40
+text = "HÀNH TRÌNH VẬN ĐỘNG"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="CanvasLayer" unique_id=1958616486]
+offset_left = 468.0
+offset_top = 462.0
+offset_right = 645.0
+offset_bottom = 533.0
+theme_override_font_sizes/font_size = 45
+text = "Bắt đầu"
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer" unique_id=1665541582]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 76.0
+offset_bottom = 72.0
+tooltip_text = "Cài đặt"
+icon = ExtResource("2_settings_icon")
+expand_icon = true
+
+[node name="HistoryButton" type="Button" parent="CanvasLayer" unique_id=949489404]
+offset_left = 376.0
+offset_top = 552.0
+offset_right = 738.0
+offset_bottom = 602.0
+theme_override_font_sizes/font_size = 24
+text = "BÁO CÁO & LỊCH SỬ TẬP"
+
+[connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/HistoryButton" to="." method="_on_history_pressed"]

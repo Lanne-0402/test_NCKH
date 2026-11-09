@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[node name="EnergyWave" type="Node2D"]
+visible = false
+
+[node name="RingOuter" type="Polygon2D" parent="."]
+color = Color(0.35, 0.75, 1.0, 0.35)
+polygon = PackedVector2Array(-80, 0, 0, -80, 80, 0, 0, 80)
+
+[node name="RingInner" type="Polygon2D" parent="."]
+color = Color(0.55, 0.90, 1.0, 0.55)
+polygon = PackedVector2Array(-48, 0, 0, -48, 48, 0, 0, 48)

@@ -1,0 +1,29 @@
+BAN GIAO FRONTEND - 26/10/2026
+
+Da ra soat thu muc nguon, assets, tests, tools va tai lieu.
+Chuyen ra ngoai: cache .godot va anh hang cu
+assets/map_1/goal/cave_entrance.png (+ .import).
+Scene hang hien tai dung stone_mine_entrance.png.
+Bang assets/map_1/README.md cu van liet ke anh hang cu; anh do da luu tru.
+
+Archive: D:/-NCKH-GamePixel2D_PHCN/HANDOFF_ARCHIVE_20261026_FINAL
+manifest.csv ghi duong dan tuong doi, kich thuoc va SHA256 tung file.
+Khong xoa vinh vien. Co the chep file tu archive ve duong dan cu de phuc hoi.
+
+GIU LAI:
+- .git: lich su repository, KHONG nen gui kem ZIP ban giao.
+- tests va tools: kiem thu hoi quy va tao am thanh gia lap.
+- scene placeholders: van duoc kiem thu tham chieu.
+- am thanh placeholder: runtime nap dong va bo am thanh du phong.
+- .uid / .import di kem tai nguyen con dung, tai lieu va giay phep.
+
+KHI NEN: chon assets, core, docs, maps, tests, tools, ui,
+project.godot, README.md, icon.svg, icon.svg.import, .gitignore.
+Bo chon .git va .godot (neu Godot tao lai). Khong mo editor lai truoc khi nen.
+BE giai nen vao duong dan ngan, vi du D:/GamePHCN, import project.godot
+va doi Godot import lai assets. Cache khong can ban giao.
+
+Ban nay van dung mock_pose_provider; chua la ban ket noi camera/BE that.
+Du lieu lich su mo rong dang cho BE, xem SESSION_HISTORY_UI_CONTRACT.txt.
+README chinh cap nhat 16/10 la tai lieu nen, UI da duoc chinh tiep den 26/10.
+Canh bao ObjectDB khi thoat mot so bai test van chua duoc xu ly.

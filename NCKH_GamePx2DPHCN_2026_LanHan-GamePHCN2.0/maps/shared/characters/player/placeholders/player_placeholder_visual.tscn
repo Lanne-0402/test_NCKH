@@ -1,0 +1,39 @@
+[gd_scene format=3]
+
+[node name="Visuals" type="Node2D"]
+
+[node name="Shadow" type="Polygon2D" parent="."]
+position = Vector2(0, 3)
+color = Color(0.08, 0.08, 0.10, 0.3)
+polygon = PackedVector2Array(-25, 0, -18, -6, 18, -6, 25, 0)
+
+[node name="Shape" type="ColorRect" parent="."]
+offset_left = -21.0
+offset_top = -72.0
+offset_right = 21.0
+offset_bottom = 0.0
+color = Color(0.20, 0.45, 0.85, 1)
+
+[node name="Head" type="ColorRect" parent="."]
+offset_left = -15.0
+offset_top = -96.0
+offset_right = 15.0
+offset_bottom = -68.0
+color = Color(1.0, 0.78, 0.58, 1)
+
+[node name="ArmLeft" type="ColorRect" parent="."]
+offset_left = -34.0
+offset_top = -65.0
+offset_right = -21.0
+offset_bottom = -25.0
+color = Color(0.15, 0.35, 0.72, 1)
+
+[node name="ArmRight" type="ColorRect" parent="."]
+offset_left = 21.0
+offset_top = -65.0
+offset_right = 34.0
+offset_bottom = -25.0
+color = Color(0.15, 0.35, 0.72, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false

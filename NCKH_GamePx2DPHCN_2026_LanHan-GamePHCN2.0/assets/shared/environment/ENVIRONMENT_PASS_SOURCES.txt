@@ -1,0 +1,34 @@
+ENVIRONMENT ASSET PASS — 2026-10-10
+
+Source pack: Legacy Fantasy - High Forest 2.3.
+Originals remain outside project at:
+D:/-NCKH-GamePixel2D_PHCN/ASSETS_UNUSED_2026-10-09/assets/itch.io/Legacy-Fantasy - High Forest 2.0/Legacy-Fantasy - High Forest 2.3/
+
+Only three cropped PNGs added. Rectangles are source pixels, x,y,width,height:
+- Assets/Buildings.png (272,240,128,128) -> assets/map_1/goal/stone_mine_entrance.png
+- Assets/Props-Rocks.png (0,80,64,80) -> assets/shared/environment/moss_boulder.png
+- Assets/Props-Rocks.png (208,48,64,32) -> assets/shared/environment/long_rock.png
+
+Reproduce with tools/prepare_environment_pass.gd and --source-assets=<archive>/assets.
+No recoloring or repainting of source PNGs. Runtime tinting in scenery only.
+Existing rocks.png, stone.png, grass.png, water.png and spikes.png are reused.
+No new full packs, character sheets, audio, or UI assets were imported.
+
+LICENSE CHECKPOINT: Existing assets/map_1/README.md records that a standalone
+High Forest license was not archived. Do not treat this file as a license grant.
+Verify and archive the creator's applicable license before public distribution.
+
+MAP 1: Stone mine entrance replaces tree hollow in the active scene. Added moss
+rock and small rock details. Old cave_entrance.png retained for recovery.
+MAP 4: Rock edging on ledges; moss rock accents; summit peak uses moss sprite.
+The plain flag remains pending replacement; pirate flag was not imported.
+MAP 5: Moss rocks at pool ends and native rock edging on the front bank.
+MAP 2/3: Added stone silhouette trim to slab and spiked wall. Same collisions.
+Map 1 and shared ground grass adjusted up by ten source pixels (20 world pixels)
+to compensate transparent top rows; collision/foot plane unchanged.
+
+NOT FINISHED: dedicated slab art, fully joined wall corners, cliff edge/underside
+tiles and distant mountain layers, natural curved hot-spring banks, neutral flag,
+steam animation, energy wave, rock-breaking animation. Current stone trim remains
+a composition of existing parts, not a claim that these custom assets are done.
+Main gameplay HUD and character integration are unchanged in this task.

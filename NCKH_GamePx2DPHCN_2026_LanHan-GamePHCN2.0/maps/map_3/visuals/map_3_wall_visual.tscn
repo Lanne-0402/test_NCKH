@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://maps/shared/world/stone_visual.gd" id="1"]
+
+[node name="Visual" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1")
+kind = "wall"

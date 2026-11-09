@@ -1,0 +1,64 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://maps/map_5/placeholders/map_5_hot_spring.tscn" id="1_spring"]
+[ext_resource type="PackedScene" path="res://maps/map_5/placeholders/map_5_steam.tscn" id="2_steam"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pool"]
+size = Vector2(520, 24)
+
+[node name="Map5RestZone" type="Node2D"]
+
+[node name="HotSpring" parent="." instance=ExtResource("1_spring")]
+
+[node name="PoolFloor" type="StaticBody2D" parent="."]
+position = Vector2(576, 328)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PoolFloor"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_pool")
+
+[node name="PlayerAnchor" type="Marker2D" parent="."]
+position = Vector2(576, 320)
+
+[node name="Steam" parent="." instance=ExtResource("2_steam")]
+position = Vector2(576, 248)
+
+[node name="SideIndicatorLeft" type="Node2D" parent="."]
+visible = false
+position = Vector2(470, 250)
+
+[node name="Glow" type="ColorRect" parent="SideIndicatorLeft"]
+offset_left = -28.0
+offset_top = -18.0
+offset_right = 28.0
+offset_bottom = 18.0
+color = Color(0.20, 0.45, 0.85, 0.35)
+
+[node name="Label" type="Label" parent="SideIndicatorLeft"]
+offset_left = -40.0
+offset_top = 22.0
+offset_right = 40.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 14
+text = "TAY TRÁI"
+horizontal_alignment = 1
+
+[node name="SideIndicatorRight" type="Node2D" parent="."]
+visible = false
+position = Vector2(682, 250)
+
+[node name="Glow" type="ColorRect" parent="SideIndicatorRight"]
+offset_left = -28.0
+offset_top = -18.0
+offset_right = 28.0
+offset_bottom = 18.0
+color = Color(0.20, 0.45, 0.85, 0.35)
+
+[node name="Label" type="Label" parent="SideIndicatorRight"]
+offset_left = -40.0
+offset_top = 22.0
+offset_right = 40.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 14
+text = "TAY PHẢI"
+horizontal_alignment = 1

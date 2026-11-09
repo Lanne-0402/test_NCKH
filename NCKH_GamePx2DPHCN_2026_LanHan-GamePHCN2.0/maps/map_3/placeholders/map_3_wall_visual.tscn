@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[node name="WallVisual" type="Node2D"]
+
+[node name="SpikeBase" type="ColorRect" parent="."]
+offset_left = -40.0
+offset_top = -120.0
+offset_right = 40.0
+offset_bottom = 120.0
+color = Color(0.42, 0.38, 0.40, 1)
+
+[node name="Highlight" type="ColorRect" parent="."]
+offset_left = -34.0
+offset_top = -114.0
+offset_right = 34.0
+offset_bottom = -104.0
+color = Color(0.55, 0.50, 0.52, 1)
+
+[node name="Spike1" type="Polygon2D" parent="."]
+color = Color(0.28, 0.24, 0.26, 1)
+polygon = PackedVector2Array(-36, -120, -20, -145, -4, -120)
+
+[node name="Spike2" type="Polygon2D" parent="."]
+color = Color(0.28, 0.24, 0.26, 1)
+polygon = PackedVector2Array(-8, -120, 8, -148, 24, -120)
+
+[node name="Spike3" type="Polygon2D" parent="."]
+color = Color(0.28, 0.24, 0.26, 1)
+polygon = PackedVector2Array(20, -120, 36, -142, 52, -120)

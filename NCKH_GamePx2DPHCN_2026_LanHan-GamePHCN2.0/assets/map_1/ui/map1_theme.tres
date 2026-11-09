@@ -1,0 +1,48 @@
+[gd_resource type="Theme" load_steps=7 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/map_1/ui/panel_brown.png" id="1_panel"]
+[ext_resource type="Texture2D" path="res://assets/map_1/ui/button_tan.png" id="2_button"]
+[ext_resource type="Texture2D" path="res://assets/map_1/ui/button_brown_pressed.png" id="3_pressed"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
+texture = ExtResource("1_panel")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+content_margin_left = 18.0
+content_margin_top = 18.0
+content_margin_right = 18.0
+content_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_button"]
+texture = ExtResource("2_button")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pressed"]
+texture = ExtResource("3_pressed")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+content_margin_left = 12.0
+content_margin_top = 11.0
+content_margin_right = 12.0
+content_margin_bottom = 9.0
+
+[resource]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_panel")
+Button/colors/font_color = Color(0.18, 0.1, 0.04, 1)
+Button/colors/font_hover_color = Color(0.1, 0.06, 0.02, 1)
+Button/colors/font_pressed_color = Color(0.95, 0.84, 0.55, 1)
+Button/styles/normal = SubResource("StyleBoxTexture_button")
+Button/styles/hover = SubResource("StyleBoxTexture_button")
+Button/styles/pressed = SubResource("StyleBoxTexture_pressed")
+Button/styles/focus = SubResource("StyleBoxTexture_button")

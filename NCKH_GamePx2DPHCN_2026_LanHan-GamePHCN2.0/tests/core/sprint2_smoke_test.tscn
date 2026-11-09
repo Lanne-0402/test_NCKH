@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://tests/core/sprint2_smoke_test_scene.gd" id="1_test"]
+[ext_resource type="Script" path="res://core/exercise/exercise_session.gd" id="2_session"]
+
+[node name="Sprint2SmokeTest" type="Node"]
+script = ExtResource("1_test")
+
+[node name="ExerciseSession" type="Node" parent="."]
+script = ExtResource("2_session")

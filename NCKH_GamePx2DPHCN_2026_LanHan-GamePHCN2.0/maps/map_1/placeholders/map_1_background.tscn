@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://dso7ymc4hppnj" path="res://maps/shared/world/scrolling_background.gd" id="1_scroll"]
+
+[node name="ScrollingBackground" type="Node2D"]
+z_index = -20
+script = ExtResource("1_scroll")
+
+[node name="Sky" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 421.0
+mouse_filter = 2
+color = Color(0.42, 0.67, 0.82, 1)
+
+[node name="FarLayer" type="Node2D" parent="."]
+
+[node name="SegmentA" type="Polygon2D" parent="FarLayer"]
+color = Color(0.2, 0.38, 0.45, 1)
+polygon = PackedVector2Array(0, 320, 0, 245, 130, 180, 245, 258, 390, 145, 520, 250, 680, 170, 810, 255, 965, 155, 1152, 245, 1152, 320)
+
+[node name="SegmentB" type="Polygon2D" parent="FarLayer"]
+position = Vector2(1152, 0)
+color = Color(0.2, 0.38, 0.45, 1)
+polygon = PackedVector2Array(0, 320, 0, 245, 130, 180, 245, 258, 390, 145, 520, 250, 680, 170, 810, 255, 965, 155, 1152, 245, 1152, 320)
+
+[node name="NearLayer" type="Node2D" parent="."]
+
+[node name="SegmentA" type="Node2D" parent="NearLayer"]
+
+[node name="BushBand" type="Polygon2D" parent="NearLayer/SegmentA"]
+color = Color(0.12, 0.46, 0.26, 1)
+polygon = PackedVector2Array(0, 320, 0, 292, 75, 272, 145, 302, 230, 265, 325, 300, 420, 270, 520, 305, 625, 262, 730, 302, 850, 268, 965, 303, 1060, 270, 1152, 298, 1152, 320)
+
+[node name="Tree1" type="ColorRect" parent="NearLayer/SegmentA"]
+offset_left = 170.0
+offset_top = 235.0
+offset_right = 194.0
+offset_bottom = 320.0
+color = Color(0.28, 0.16, 0.08, 1)
+
+[node name="Tree2" type="ColorRect" parent="NearLayer/SegmentA"]
+offset_left = 720.0
+offset_top = 245.0
+offset_right = 744.0
+offset_bottom = 320.0
+color = Color(0.28, 0.16, 0.08, 1)
+
+[node name="SegmentB" type="Node2D" parent="NearLayer"]
+position = Vector2(1152, 0)
+
+[node name="BushBand" type="Polygon2D" parent="NearLayer/SegmentB"]
+color = Color(0.12, 0.46, 0.26, 1)
+polygon = PackedVector2Array(0, 320, 0, 292, 75, 272, 145, 302, 230, 265, 325, 300, 420, 270, 520, 305, 625, 262, 730, 302, 850, 268, 965, 303, 1060, 270, 1152, 298, 1152, 320)
+
+[node name="Tree1" type="ColorRect" parent="NearLayer/SegmentB"]
+offset_left = 170.0
+offset_top = 235.0
+offset_right = 194.0
+offset_bottom = 320.0
+color = Color(0.28, 0.16, 0.08, 1)
+
+[node name="Tree2" type="ColorRect" parent="NearLayer/SegmentB"]
+offset_left = 720.0
+offset_top = 245.0
+offset_right = 744.0
+offset_bottom = 320.0
+color = Color(0.28, 0.16, 0.08, 1)

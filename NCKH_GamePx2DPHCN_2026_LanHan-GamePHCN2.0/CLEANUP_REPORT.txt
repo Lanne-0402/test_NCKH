@@ -1,0 +1,38 @@
+KẾT QUẢ DỌN PROJECT — 14/10/2026
+
+Đã chuyển 9.401 file (57,07 MiB) ra:
+D:/-NCKH-GamePixel2D_PHCN/HANDOFF_ARCHIVE_20261014
+Bao gồm 4.781 file cache cũ, 4.411 file dưới assets, 203 file test/prototype/output,
+6 file báo cáo/icon ở gốc. Tổng 9.401 file.
+Tất cả file chuyển đã kiểm chứng SHA256 khớp manifest.csv. Không xóa vĩnh viễn.
+Không sửa Git history; không commit/push. Không sửa dữ liệu người chơi.
+
+Assets trước: 4.492 file. Assets sau: 82 file (kể cả metadata và tài liệu).
+Cấu trúc hiện tại xem HANDOFF_BE.txt.
+Các thư mục placeholders và assets/characters/mk2_lab giữ lại có chủ đích:
+vẫn có scene/code hoặc kiểm thử tham chiếu, không đánh giá thừa chỉ dựa vào tên.
+
+Kiểm chứng sau chuyển:
+- Import lại Godot từ cache mới. Lần khởi động đầu báo thiếu compiled theme texture
+  do cache vừa tách; import đã tạo lại. Những lần chạy kiểm thử sau không còn lỗi đó.
+- resource_paths_smoke_test: PASS
+- navigation_flow_test: PASS
+- settings_menu_smoke_test: PASS
+- home_demo_test: PASS
+- presentation_integration_test: PASS
+- dual_view_test: PASS
+- map 1, 2, 3, 4, 5 smoke tests: PASS
+- gameplay_actions_test: PASS
+- upper_diagonals_test: PASS
+- stability_disabled_test: PASS
+Tổng 14 scene kiểm thử PASS, chạy headless --no-save.
+Không xác minh kết nối BE/camera/MediaPipe thật; hiện autoload vẫn dùng mock.
+Không chạy lại persistence ghi đĩa trong đợt dọn này.
+
+Giữ JSON_Contract.docx và gamescripts_DesignGameplay.docx nguyên trạng.
+Bổ sung hướng dẫn BE; sửa README trỏ đến hướng dẫn mới.
+Bổ sung ignore output ảnh và profile test; vẫn giữ .gd.uid và .import đi cùng asset.
+Cache .godot mới được tạo khi kiểm thử; loại khỏi gói bàn giao, cùng .git.
+Không gửi kho archive kèm game. Đừng xóa archive khi còn cần nguồn art/khôi phục.
+Các file đã track trước đây sẽ hiện deleted trong git diff; .gitignore không tự bỏ track.
+

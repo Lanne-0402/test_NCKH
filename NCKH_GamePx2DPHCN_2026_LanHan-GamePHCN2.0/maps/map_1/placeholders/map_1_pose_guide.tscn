@@ -1,0 +1,95 @@
+[gd_scene format=3]
+
+[node name="Map1PoseGuide" type="Control"]
+custom_minimum_size = Vector2(0, 116)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.93, 0.95, 0.98, 1)
+
+[node name="Torso" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 252.0
+offset_top = 48.0
+offset_right = 292.0
+offset_bottom = 106.0
+color = Color(0.20, 0.45, 0.85, 1)
+
+[node name="Head" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 21.0
+offset_right = 284.0
+offset_bottom = 47.0
+color = Color(1, 0.78, 0.58, 1)
+
+[node name="UpperArmLeft" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 214.0
+offset_top = 52.0
+offset_right = 252.0
+offset_bottom = 64.0
+color = Color(0.15, 0.35, 0.72, 1)
+
+[node name="ForearmLeft" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 22.0
+offset_right = 216.0
+offset_bottom = 64.0
+color = Color(0.15, 0.35, 0.72, 1)
+
+[node name="UpperArmRight" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 292.0
+offset_top = 52.0
+offset_right = 330.0
+offset_bottom = 64.0
+color = Color(0.15, 0.35, 0.72, 1)
+
+[node name="ForearmRight" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 22.0
+offset_right = 340.0
+offset_bottom = 64.0
+color = Color(0.15, 0.35, 0.72, 1)
+
+[node name="AngleLeft" type="Label" parent="."]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 25.0
+offset_right = 204.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0.12, 0.32, 0.62, 1)
+theme_override_font_sizes/font_size = 17
+text = "90°"
+
+[node name="AngleRight" type="Label" parent="."]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 25.0
+offset_right = 383.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0.12, 0.32, 0.62, 1)
+theme_override_font_sizes/font_size = 17
+text = "90°"
+
+[node name="Caption" type="Label" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 84.0
+offset_right = 472.0
+offset_bottom = 111.0
+theme_override_colors/font_color = Color(0.12, 0.12, 0.12, 1)
+theme_override_font_sizes/font_size = 16
+text = "← Gập khuỷu 90°  •  Ép hai bả vai ra sau chậm rãi →"
+horizontal_alignment = 1

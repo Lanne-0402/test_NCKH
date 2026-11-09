@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[node name="SlabVisual" type="Node2D"]
+
+[node name="Shadow" type="ColorRect" parent="."]
+offset_left = -156.0
+offset_top = -56.0
+offset_right = 156.0
+offset_bottom = 5.0
+color = Color(0.08, 0.08, 0.10, 0.25)
+
+[node name="Base" type="ColorRect" parent="."]
+offset_left = -150.0
+offset_top = -60.0
+offset_right = 150.0
+offset_bottom = 0.0
+color = Color(0.36, 0.34, 0.38, 1)
+
+[node name="Highlight" type="ColorRect" parent="."]
+offset_left = -142.0
+offset_top = -52.0
+offset_right = 142.0
+offset_bottom = -42.0
+color = Color(0.52, 0.50, 0.55, 1)
+
+[node name="Crack1" type="Line2D" parent="."]
+points = PackedVector2Array(-60, -52, -42, -35, -55, -15)
+width = 4.0
+default_color = Color(0.18, 0.17, 0.20, 0.8)
+
+[node name="Crack2" type="Line2D" parent="."]
+points = PackedVector2Array(75, -48, 55, -30, 70, -10)
+width = 4.0
+default_color = Color(0.18, 0.17, 0.20, 0.8)

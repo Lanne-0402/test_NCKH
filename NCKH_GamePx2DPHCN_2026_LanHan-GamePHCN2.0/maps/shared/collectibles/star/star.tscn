@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b5vmel01rfdoi"]
+
+[ext_resource type="Script" uid="uid://ysxj5gwmre3d" path="res://maps/shared/collectibles/star/star.gd" id="1_46ao5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7wsd"]
+
+[node name="Star" type="Area2D" unique_id=1044214462]
+script = ExtResource("1_46ao5")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1303093259]
+offset_left = 215.0
+offset_top = 59.0
+offset_right = 235.0
+offset_bottom = 79.0
+color = Color(0.99607843, 0.8352941, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=69393633]
+position = Vector2(225, 69)
+shape = SubResource("RectangleShape2D_s7wsd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
