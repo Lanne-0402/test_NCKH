@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Game Pixel 2D Phục Hồi Chức Năng - Web Edition</title>
+    <link rel="icon" type="image/png" href="game.icon.png" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #161622;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            width: 100%;
+            background: #202032;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #363654;
+        }
+        header h1 {
+            font-size: 1.15rem;
+            color: #ffe082;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cloud-badge {
+            background: #1b5e20;
+            color: #e8f5e9;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .cloud-badge.offline {
+            background: #b71c1c;
+        }
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00e676;
+        }
+        .cloud-badge.offline .indicator {
+            background: #ff5252;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1440px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .game-viewport {
+            flex: 1;
+            max-width: 980px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 3px solid #3f3f63;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            aspect-ratio: 16 / 9;
+        }
+        #canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            outline: none;
+        }
+        #status {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #1a1a28;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            z-index: 10;
+        }
+        #status-progress {
+            width: 50%;
+            height: 12px;
+            accent-color: #ffb300;
+        }
+        #status-text {
+            color: #ffe082;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .camera-panel {
+            width: 320px;
+            background: #202032;
+            border-radius: 8px;
+            padding: 16px;
+            border: 2px solid #363654;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .camera-panel h3 {
+            font-size: 0.95rem;
+            color: #80d8ff;
+            border-bottom: 1px solid #363654;
+            padding-bottom: 8px;
+        }
+        .cam-preview-box {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background: #111;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #555;
+        }
+        #webcam-video {
+            display: none;
+        }
+        #ai-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .status-box {
+            font-size: 0.82rem;
+            color: #ccc;
+            line-height: 1.6;
+            background: #151522;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .btn-action {
+            background: #ffb300;
+            color: #161622;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-action:hover {
+            background: #ffa000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎮 Game Phục Hồi Chức Năng 2D (Web Edition)</h1>
+        <div id="cloud-status-badge" class="cloud-badge">
+            <span class="indicator"></span>
+            <span id="cloud-status-text">Cloud DB: Đang kiểm tra...</span>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Khung Game Godot Web -->
+        <div class="game-viewport">
+            <canvas id="canvas"></canvas>
+            <div id="status">
+                <img src="game.png" alt="Logo" style="max-width: 120px; border-radius: 8px;">
+                <progress id="status-progress" value="0" max="100"></progress>
+                <div id="status-text">Đang tải WebAssembly Game...</div>
+            </div>
+        </div>
+
+        <!-- Khung Camera & AI MediaPipe bên cạnh -->
+        <div class="camera-panel">
+            <h3>📷 Camera Nhận Diện Khớp Vai (AI)</h3>
+            <div class="cam-preview-box">
+                <video id="webcam-video" autoplay playsinline></video>
+                <canvas id="ai-canvas" width="640" height="480"></canvas>
+            </div>
+            <div class="status-box">
+                <strong>Trạng thái AI:</strong> <span id="ai-status">Đang khởi tạo...</span><br>
+                <strong>Tốc độ:</strong> ~30 FPS (WebAssembly GPU)<br>
+                <strong>Bảo mật:</strong> Hình ảnh xử lý tại chỗ, không gửi lên server.
+            </div>
+            <button class="btn-action" onclick="window.GamePHCN_Bridge.startCamera()">Bật / Khởi động lại Camera</button>
+        </div>
+    </div>
+
+    <!-- Nạp MediaPipe Bridge JS -->
+    <script src="mediapipe_bridge.js"></script>
+
+    <!-- Nạp Godot Wasm Engine -->
+    <script src="game.js"></script>
+    <script>
+        const GODOT_CONFIG = {
+            "args": [],
+            "canvasResizePolicy": 2,
+            "executable": "game",
+            "fileSizes": { "game.pck": 2706024, "game.wasm": 39514754 },
+            "focusCanvas": true,
+        };
+        const engine = new Engine(GODOT_CONFIG);
+
+        const statusOverlay = document.getElementById('status');
+        const statusProgress = document.getElementById('status-progress');
+        const statusText = document.getElementById('status-text');
+
+        // Bắt đầu nạp Game Godot
+        engine.startGame({
+            'onProgress': function (current, total) {
+                if (total > 0) {
+                    statusProgress.value = current;
+                    statusProgress.max = total;
+                    statusText.textContent = `Đang nạp tài nguyên... (${Math.round((current / total) * 100)}%)`;
+                }
+            }
+        }).then(() => {
+            statusOverlay.style.display = 'none';
+            console.log("[Godot] Game đã khởi động thành công!");
+        }).catch((err) => {
+            console.error("[Godot] Lỗi khởi động game: ", err);
+            statusText.textContent = "Lỗi nạp game: " + err;
+        });
+
+        // Khởi động Camera và AI
+        window.addEventListener("DOMContentLoaded", () => {
+            window.GamePHCN_Bridge.init("webcam-video", "ai-canvas").then(() => {
+                document.getElementById("ai-status").textContent = "Đang nhận diện khớp vai!";
+            }).catch(e => {
+                document.getElementById("ai-status").textContent = "Chưa nhận diện: " + e;
+            });
+
+            // Kiểm tra kết nối Render API Cloud
+            fetch("https://gamephcn-api.onrender.com/health", { mode: "cors" })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.ok) {
+                        document.getElementById("cloud-status-badge").className = "cloud-badge";
+                        document.getElementById("cloud-status-text").textContent = "Cloud DB: Đã kết nối Render (MongoDB Atlas)";
+                    }
+                })
+                .catch(() => {
+                    document.getElementById("cloud-status-badge").className = "cloud-badge offline";
+                    document.getElementById("cloud-status-text").textContent = "Cloud DB: Chế độ Offline (Chưa bật Render)";
+                });
+        });
+    </script>
+</body>
+</html>
