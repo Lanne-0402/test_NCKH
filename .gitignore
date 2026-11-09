@@ -1,0 +1,11 @@
+# Standalone packages & Build archives (Tránh vượt giới hạn 100MB của GitHub)
+GamePHCN_Standalone_Package/
+*.zip
+
+# Godot editor cache
+.godot/
+
+# Python cache & build
+__pycache__/
+*.py[cod]
+*.spec
