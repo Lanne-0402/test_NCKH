@@ -11,98 +11,60 @@
             margin: 0;
             padding: 0;
         }
-        body {
-            background-color: #161622;
+        html, body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #0d0d15;
             color: #f0f0f0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-        header {
-            width: 100%;
-            background: #202032;
-            padding: 12px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #363654;
-        }
-        header h1 {
-            font-size: 1.15rem;
-            color: #ffe082;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .cloud-badge {
-            background: #1b5e20;
-            color: #e8f5e9;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-        }
-        .cloud-badge.offline {
-            background: #b71c1c;
-        }
-        .indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #00e676;
-        }
-        .cloud-badge.offline .indicator {
-            background: #ff5252;
-        }
-        .main-container {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            padding: 20px;
-            width: 100%;
-            max-width: 1440px;
-            justify-content: center;
-            align-items: flex-start;
-        }
-        .game-viewport {
-            flex: 1;
-            max-width: 980px;
-            background: #000;
-            border-radius: 8px;
             overflow: hidden;
-            border: 3px solid #3f3f63;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            aspect-ratio: 16 / 9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
         }
+
+        /* Khung hiển thị Game toàn màn hình chuẩn tỷ lệ 16:9 */
+        .game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            max-width: calc(100vh * 16 / 9);
+            max-height: calc(100vw * 9 / 16);
+            aspect-ratio: 16 / 9;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+        }
+
         #canvas {
             width: 100%;
             height: 100%;
             display: block;
             outline: none;
+            border: none;
         }
+
+        /* Màn hình chờ nạp WebAssembly */
         #status {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #1a1a28;
+            background-color: #161625;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 16px;
-            z-index: 10;
+            z-index: 90;
         }
         #status-progress {
-            width: 50%;
+            width: 45%;
             height: 12px;
             accent-color: #ffb300;
         }
@@ -111,31 +73,138 @@
             font-weight: 600;
             font-size: 0.95rem;
         }
-        .camera-panel {
-            width: 320px;
-            background: #202032;
-            border-radius: 8px;
-            padding: 16px;
-            border: 2px solid #363654;
+
+        /* Thanh tiêu đề nổi (Floating Header Bar) */
+        .top-floating-bar {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 60;
+            pointer-events: none;
+        }
+        .header-title-badge {
+            background: rgba(26, 26, 38, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #3f3f63;
+            color: #ffe082;
+            font-weight: 600;
+            font-size: 0.85rem;
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+        .cloud-badge {
+            background: rgba(27, 94, 32, 0.88);
+            backdrop-filter: blur(8px);
+            color: #e8f5e9;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #43a047;
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            pointer-events: auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            transition: 0.3s;
+        }
+        .cloud-badge.offline {
+            background: rgba(183, 28, 28, 0.88);
+            border-color: #e53935;
+        }
+        .cloud-badge.connecting {
+            background: rgba(230, 81, 0, 0.88);
+            border-color: #fb8c00;
+        }
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00e676;
+            box-shadow: 0 0 6px #00e676;
+        }
+        .cloud-badge.offline .indicator {
+            background: #ff5252;
+            box-shadow: 0 0 6px #ff5252;
+        }
+        .cloud-badge.connecting .indicator {
+            background: #ffd600;
+            box-shadow: 0 0 6px #ffd600;
+        }
+
+        /* Khung Camera nhúng góc dưới bên phải chuẩn Hình 2 (PiP Overlay) */
+        .embedded-camera-pip {
+            position: absolute;
+            right: 1.5%;
+            bottom: 1.8%;
+            width: 27%;
+            min-width: 190px;
+            max-width: 290px;
+            aspect-ratio: 4 / 3;
+            border: 3px solid #ffb300;
+            border-radius: 6px;
+            background: #000;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.85);
+            z-index: 50;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: all 0.25s ease;
         }
-        .camera-panel h3 {
-            font-size: 0.95rem;
-            color: #80d8ff;
-            border-bottom: 1px solid #363654;
-            padding-bottom: 8px;
+        .embedded-camera-pip.minimized {
+            height: 28px !important;
+            aspect-ratio: auto !important;
         }
-        .cam-preview-box {
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            background: #111;
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
+        .embedded-camera-pip.minimized .cam-body {
+            display: none !important;
+        }
+
+        .cam-header {
+            background: #252538;
+            padding: 3px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #444;
+            font-size: 0.72rem;
+            color: #ffe082;
+            font-weight: bold;
+            user-select: none;
+        }
+        .cam-header .cam-actions {
+            display: flex;
+            gap: 6px;
+        }
+        .cam-btn {
+            background: #363650;
+            color: #eee;
             border: 1px solid #555;
+            border-radius: 3px;
+            padding: 1px 6px;
+            font-size: 0.68rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .cam-btn:hover {
+            background: #ffb300;
+            color: #111;
+        }
+
+        .cam-body {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 24px);
+            background: #111;
+            overflow: hidden;
         }
         #webcam-video {
             display: none;
@@ -144,63 +213,84 @@
             width: 100%;
             height: 100%;
             display: block;
+            object-fit: cover;
         }
-        .status-box {
-            font-size: 0.82rem;
-            color: #ccc;
-            line-height: 1.6;
-            background: #151522;
-            padding: 10px;
+        .cam-status-pill {
+            position: absolute;
+            bottom: 4px;
+            left: 6px;
+            font-size: 0.65rem;
+            background: rgba(0, 0, 0, 0.75);
+            color: #80d8ff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            pointer-events: none;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        /* Toast thông báo quyền Camera */
+        #camera-perm-toast {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #b71c1c;
+            color: #fff;
+            padding: 8px 18px;
             border-radius: 6px;
-        }
-        .btn-action {
-            background: #ffb300;
-            color: #161622;
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-action:hover {
-            background: #ffa000;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            z-index: 100;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>🎮 Game Phục Hồi Chức Năng 2D (Web Edition)</h1>
-        <div id="cloud-status-badge" class="cloud-badge">
-            <span class="indicator"></span>
-            <span id="cloud-status-text">Cloud DB: Đang kiểm tra...</span>
-        </div>
-    </header>
+    <div class="game-container">
+        <!-- Canvas Game Godot Engine -->
+        <canvas id="canvas"></canvas>
 
-    <div class="main-container">
-        <!-- Khung Game Godot Web -->
-        <div class="game-viewport">
-            <canvas id="canvas"></canvas>
-            <div id="status">
-                <img src="game.png" alt="Logo" style="max-width: 120px; border-radius: 8px;">
-                <progress id="status-progress" value="0" max="100"></progress>
-                <div id="status-text">Đang tải WebAssembly Game...</div>
+        <!-- Thanh thông tin nổi góc trên -->
+        <div class="top-floating-bar">
+            <div class="header-title-badge">
+                <span>🎮</span>
+                <span>Game Phục Hồi Chức Năng 2D (Web Edition)</span>
+            </div>
+            <div id="cloud-status-badge" class="cloud-badge connecting">
+                <span class="indicator"></span>
+                <span id="cloud-status-text">Cloud DB: Đang kết nối Render...</span>
             </div>
         </div>
 
-        <!-- Khung Camera & AI MediaPipe bên cạnh -->
-        <div class="camera-panel">
-            <h3>📷 Camera Nhận Diện Khớp Vai (AI)</h3>
-            <div class="cam-preview-box">
-                <video id="webcam-video" autoplay playsinline></video>
+        <!-- Toast nhắc cấp quyền Camera nếu bị từ chối -->
+        <div id="camera-perm-toast">
+            📷 Vui lòng nhấn vào biểu tượng máy ảnh trên thanh địa chỉ trình duyệt để BẬT Camera!
+        </div>
+
+        <!-- Khung Camera AI nhúng góc dưới bên phải chuẩn Hình 2 -->
+        <div id="camera-pip" class="embedded-camera-pip">
+            <div class="cam-header">
+                <span>CAMERA NGƯỜI TẬP</span>
+                <div class="cam-actions">
+                    <button class="cam-btn" title="Thu nhỏ / Phóng to" onclick="toggleCameraMinimize()">[ _ ]</button>
+                    <button class="cam-btn" title="Khởi động lại Camera" onclick="window.GamePHCN_Bridge.startCamera()">[ 🔄 ]</button>
+                </div>
+            </div>
+            <div class="cam-body">
+                <video id="webcam-video" autoplay playsinline muted></video>
                 <canvas id="ai-canvas" width="640" height="480"></canvas>
+                <div class="cam-status-pill">
+                    <span id="ai-status-text">Đang nhận diện...</span>
+                </div>
             </div>
-            <div class="status-box">
-                <strong>Trạng thái AI:</strong> <span id="ai-status">Đang khởi tạo...</span><br>
-                <strong>Tốc độ:</strong> ~30 FPS (WebAssembly GPU)<br>
-                <strong>Bảo mật:</strong> Hình ảnh xử lý tại chỗ, không gửi lên server.
-            </div>
-            <button class="btn-action" onclick="window.GamePHCN_Bridge.startCamera()">Bật / Khởi động lại Camera</button>
+        </div>
+
+        <!-- Màn hình nạp Game Godot -->
+        <div id="status">
+            <img src="game.png" alt="Logo" style="max-width: 120px; border-radius: 8px;">
+            <progress id="status-progress" value="0" max="100"></progress>
+            <div id="status-text">Đang tải WebAssembly Game...</div>
         </div>
     </div>
 
@@ -210,6 +300,7 @@
     <!-- Nạp Godot Wasm Engine -->
     <script src="game.js"></script>
     <script>
+        // Cấu hình khởi chạy Godot 4 Web Engine
         const GODOT_CONFIG = {
             "args": [],
             "canvasResizePolicy": 2,
@@ -223,7 +314,7 @@
         const statusProgress = document.getElementById('status-progress');
         const statusText = document.getElementById('status-text');
 
-        // Bắt đầu nạp Game Godot
+        // Khởi động nạp Game Wasm
         engine.startGame({
             'onProgress': function (current, total) {
                 if (total > 0) {
@@ -234,34 +325,69 @@
             }
         }).then(() => {
             statusOverlay.style.display = 'none';
-            console.log("[Godot] Game đã khởi động thành công!");
+            console.log("[Godot] Game đã khởi động toàn màn hình thành công!");
         }).catch((err) => {
             console.error("[Godot] Lỗi khởi động game: ", err);
             statusText.textContent = "Lỗi nạp game: " + err;
         });
 
-        // Khởi động Camera và AI
+        // Toggle thu nhỏ / mở lại khung Camera PiP
+        function toggleCameraMinimize() {
+            const pip = document.getElementById('camera-pip');
+            pip.classList.toggle('minimized');
+        }
+
+        // Khởi động Camera và kiểm tra kết nối Render API Cloud
         window.addEventListener("DOMContentLoaded", () => {
-            window.GamePHCN_Bridge.init("webcam-video", "ai-canvas").then(() => {
-                document.getElementById("ai-status").textContent = "Đang nhận diện khớp vai!";
-            }).catch(e => {
-                document.getElementById("ai-status").textContent = "Chưa nhận diện: " + e;
+            // 1. Tự động bật Camera và nạp mô hình MediaPipe Vision ngay khi mở trang
+            window.GamePHCN_Bridge.init("webcam-video", "ai-canvas").catch(e => {
+                console.warn("[Bridge] Lỗi khởi động Camera:", e);
             });
 
-            // Kiểm tra kết nối Render API Cloud
-            fetch("https://gamephcn-api.onrender.com/health", { mode: "cors" })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.ok) {
-                        document.getElementById("cloud-status-badge").className = "cloud-badge";
-                        document.getElementById("cloud-status-text").textContent = "Cloud DB: Đã kết nối Render (MongoDB Atlas)";
-                    }
+            // 2. Tự động kiểm tra kết nối Render Web Service (kết nối MongoDB Atlas)
+            fetch("cloud_config.json")
+                .then(r => r.json())
+                .then(cfg => {
+                    const renderUrl = cfg.url || "https://test-nckh.onrender.com";
+                    checkCloudConnection(renderUrl);
                 })
                 .catch(() => {
-                    document.getElementById("cloud-status-badge").className = "cloud-badge offline";
-                    document.getElementById("cloud-status-text").textContent = "Cloud DB: Chế độ Offline (Chưa bật Render)";
+                    checkCloudConnection("https://test-nckh.onrender.com");
                 });
         });
+
+        function checkCloudConnection(baseUrl) {
+            const badge = document.getElementById("cloud-status-badge");
+            const text = document.getElementById("cloud-status-text");
+
+            fetch(`${baseUrl}/health`, { mode: "cors" })
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.ok) {
+                        badge.className = "cloud-badge";
+                        text.textContent = "MongoDB Cloud: ONLINE (Render)";
+                        console.log("[Render Cloud] Kết nối thành công tới:", baseUrl, data);
+                    } else {
+                        badge.className = "cloud-badge offline";
+                        text.textContent = "Cloud DB: Chưa cấu hình xong Atlas";
+                    }
+                })
+                .catch(err => {
+                    badge.className = "cloud-badge offline";
+                    text.textContent = "Cloud DB: Render đang khởi động...";
+                    // Thử kết nối lại sau 5s phòng trường hợp Render Free đang tỉnh giấc (Cold Start)
+                    setTimeout(() => {
+                        fetch(`${baseUrl}/health`, { mode: "cors" })
+                            .then(r => r.json())
+                            .then(d => {
+                                if (d && d.ok) {
+                                    badge.className = "cloud-badge";
+                                    text.textContent = "MongoDB Cloud: ONLINE (Render)";
+                                }
+                            }).catch(() => {});
+                    }, 5000);
+                });
+        }
     </script>
 </body>
 </html>
