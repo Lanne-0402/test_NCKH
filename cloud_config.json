@@ -1,7 +1,7 @@
 {
   "enabled": true,
   "provider": "mongodb",
-  "url": "https://gamephcn-api.onrender.com",
+  "url": "https://test-nckh.onrender.com",
   "api_key": "rehab_pixel_game",
-  "comment": "Thay the url bang dia chi Web Service tren Render cua ban"
+  "comment": "Ket noi Web Service tren Render (MongoDB Atlas Cloud)"
 }

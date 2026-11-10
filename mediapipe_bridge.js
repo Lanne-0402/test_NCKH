@@ -16,8 +16,8 @@ window.GamePHCN_Bridge = {
     canvasCtx: null,
     poseLandmarker: null,
 
-    // Cấu hình Render Cloud API mặc định
-    cloudApiUrl: "https://gamephcn-api.onrender.com",
+    // Cấu hình Render Cloud API chính thức
+    cloudApiUrl: "https://test-nckh.onrender.com",
     apiKey: "rehab_pixel_game",
 
     /**
@@ -27,12 +27,19 @@ window.GamePHCN_Bridge = {
         this.videoElement = document.getElementById(videoElementId);
         this.canvasElement = document.getElementById(canvasElementId);
         if (this.canvasElement) {
-            this.canvasCtx = this.canvasElement.getContext("2d");
+            this.canvasCtx = this.canvasElement.getContext("2d", { alpha: false });
         }
 
-        console.log("[Bridge] Đang khởi động MediaPipe Vision Tasks API...");
+        this.updateStatus("Đang nạp mô hình AI MediaPipe...");
+
+        // Khởi động Camera song song ngay lập tức để người dùng thấy ảnh webcam không bị trễ
+        this.startCamera().catch(err => {
+            console.warn("[Bridge] Chưa bật được camera tự động:", err);
+        });
+
+        // Nạp mô hình AI MediaPipe Tasks Vision từ CDN
         try {
-            // Nạp MediaPipe Tasks Vision từ CDN
+            console.log("[Bridge] Đang tải MediaPipe Tasks Vision Wasm...");
             const vision = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm/vision_bundle.mjs");
             const { PoseLandmarker, FilesetResolver } = vision;
 
@@ -40,30 +47,23 @@ window.GamePHCN_Bridge = {
                 "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
             );
 
-            this.poseLandmarker = await PoseLandmarker.createFromOptions(wasmFileset, {
-                baseOptions: {
-                    modelAssetPath: "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task",
-                    delegate: "GPU",
-                },
-                runningMode: "VIDEO",
-                numPoses: 1,
-                minPoseDetectionConfidence: 0.5,
-                minPosePresenceConfidence: 0.5,
-                minTrackingConfidence: 0.5,
-            });
-
-            this.isModelLoaded = true;
-            console.log("[Bridge] Khởi tạo mô hình AI MediaPipe thành công (Chế độ tăng tốc GPU)!");
-            await this.startCamera();
-        } catch (err) {
-            console.error("[Bridge] Lỗi khởi tạo MediaPipe: ", err);
-            // Fallback chế độ CPU nếu thiết bị không hỗ trợ GPU delegate
+            // Thử nạp với GPU Delegate trước
             try {
-                const vision = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm/vision_bundle.mjs");
-                const { PoseLandmarker, FilesetResolver } = vision;
-                const wasmFileset = await FilesetResolver.forVisionTasks(
-                    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
-                );
+                this.poseLandmarker = await PoseLandmarker.createFromOptions(wasmFileset, {
+                    baseOptions: {
+                        modelAssetPath: "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task",
+                        delegate: "GPU",
+                    },
+                    runningMode: "VIDEO",
+                    numPoses: 1,
+                    minPoseDetectionConfidence: 0.5,
+                    minPosePresenceConfidence: 0.5,
+                    minTrackingConfidence: 0.5,
+                });
+                this.isModelLoaded = true;
+                this.updateStatus("AI sẵn sàng (Tăng tốc GPU)");
+            } catch (gpuErr) {
+                console.warn("[Bridge] Không hỗ trợ GPU delegate, chuyển sang CPU fallback:", gpuErr);
                 this.poseLandmarker = await PoseLandmarker.createFromOptions(wasmFileset, {
                     baseOptions: {
                         modelAssetPath: "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task",
@@ -73,11 +73,13 @@ window.GamePHCN_Bridge = {
                     numPoses: 1,
                 });
                 this.isModelLoaded = true;
-                console.log("[Bridge] Khởi tạo mô hình AI MediaPipe thành công (Chế độ CPU Fallback)!");
-                await this.startCamera();
-            } catch (fallbackErr) {
-                console.error("[Bridge] Fallback thất bại: ", fallbackErr);
+                this.updateStatus("AI sẵn sàng (Chế độ CPU)");
             }
+
+            console.log("[Bridge] Khởi tạo mô hình AI MediaPipe thành công!");
+        } catch (err) {
+            console.error("[Bridge] Lỗi khởi tạo MediaPipe: ", err);
+            this.updateStatus("Không thể tải AI MediaPipe");
         }
     },
 
@@ -86,8 +88,9 @@ window.GamePHCN_Bridge = {
      */
     async startCamera() {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            this.updateStatus("Trình duyệt không hỗ trợ Camera");
             alert("Trình duyệt của bạn không hỗ trợ truy cập Camera!");
-            return;
+            return false;
         }
 
         try {
@@ -102,29 +105,62 @@ window.GamePHCN_Bridge = {
 
             if (this.videoElement) {
                 this.videoElement.srcObject = stream;
-                this.videoElement.addEventListener("loadeddata", () => {
-                    this.isCameraActive = true;
-                    console.log("[Bridge] Camera Webcam đã hoạt động!");
-                    this.startPredictionLoop();
-                });
+                this.videoElement.muted = true; // Bắt buộc để tránh bị Chrome Autoplay Policy chặn
+                await this.videoElement.play();
+                this.isCameraActive = true;
+                this.updateStatus("Camera đang hoạt động");
+                this.startPredictionLoop();
+                return true;
             }
         } catch (err) {
-            console.error("[Bridge] Không thể truy cập Webcam: ", err);
+            console.error("[Bridge] Lỗi truy cập Webcam: ", err);
+            if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
+                this.updateStatus("Bị từ chối quyền Camera");
+                const banner = document.getElementById("camera-perm-toast");
+                if (banner) banner.style.display = "block";
+            } else {
+                this.updateStatus("Lỗi mở Camera: " + (err.message || err.name));
+            }
+            return false;
         }
     },
 
     /**
-     * Vòng lặp nhận diện thời gian thực (30 FPS)
+     * Cập nhật thông báo trạng thái AI ra giao diện
+     */
+    updateStatus(text) {
+        const el = document.getElementById("ai-status-text");
+        if (el) el.textContent = text;
+    },
+
+    /**
+     * Vòng lặp nhận diện & vẽ khung hình thời gian thực (30 FPS)
      */
     startPredictionLoop() {
+        if (this._loopRunning) return;
+        this._loopRunning = true;
+
         const renderLoop = () => {
-            if (this.isCameraActive && this.poseLandmarker && this.videoElement.readyState >= 2) {
+            if (this.isCameraActive && this.videoElement && this.videoElement.readyState >= 2) {
                 const now = performance.now();
-                if (now - this.lastFrameTime >= 30) { // ~30 FPS
-                    const results = this.poseLandmarker.detectForVideo(this.videoElement, now);
-                    this.processResults(results);
+
+                // 1. Nhận diện mốc xương AI nếu mô hình đã sẵn sàng
+                if (this.poseLandmarker && (now - this.lastFrameTime >= 28)) { // ~30-35 FPS
+                    try {
+                        const results = this.poseLandmarker.detectForVideo(this.videoElement, now);
+                        if (results && results.landmarks && results.landmarks.length > 0) {
+                            this.latestLandmarks = results.landmarks[0];
+                        } else {
+                            this.latestLandmarks = null;
+                        }
+                    } catch (e) {
+                        console.warn("[Bridge] Lỗi nhận diện frame:", e);
+                    }
                     this.lastFrameTime = now;
                 }
+
+                // 2. Vẽ hình ảnh camera lên Canvas kèm khung xương
+                this.renderCameraFrame();
             }
             requestAnimationFrame(renderLoop);
         };
@@ -132,64 +168,70 @@ window.GamePHCN_Bridge = {
     },
 
     /**
-     * Xử lý kết quả tọa độ khung xương & vẽ Canvas Preview
+     * Vẽ khung hình video thật lên Canvas kèm đường nối xương (Không bao giờ bị màn hình đen)
      */
-    processResults(results) {
-        if (!results || !results.landmarks || results.landmarks.length === 0) {
-            this.latestLandmarks = null;
-            return;
-        }
+    renderCameraFrame() {
+        if (!this.canvasCtx || !this.canvasElement || !this.videoElement) return;
 
-        this.latestLandmarks = results.landmarks[0]; // 33 điểm mốc 3D
+        const w = this.canvasElement.width;
+        const h = this.canvasElement.height;
 
-        // Vẽ khung xương lên Canvas nếu có
-        if (this.canvasCtx && this.canvasElement) {
-            this.canvasCtx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
-            // Lật gương hình vẽ
+        this.canvasCtx.save();
+        // Lật gương (Mirror) để động tác tay trái/phải trùng khớp góc nhìn người tập
+        this.canvasCtx.scale(-1, 1);
+        this.canvasCtx.drawImage(this.videoElement, -w, 0, w, h);
+        this.canvasCtx.restore();
+
+        // Nếu có nhận diện được khung xương AI, vẽ đè lên hình ảnh
+        if (this.latestLandmarks) {
             this.canvasCtx.save();
             this.canvasCtx.scale(-1, 1);
-            this.canvasCtx.translate(-this.canvasElement.width, 0);
+            this.canvasCtx.translate(-w, 0);
 
-            // Vẽ các điểm khớp quan trọng (Vai 11, 12; Khuỷu 13, 14; Cổ tay 15, 16)
             const pts = this.latestLandmarks;
-            const w = this.canvasElement.width;
-            const h = this.canvasElement.height;
 
-            const drawJoint = (idx, color) => {
+            const drawJoint = (idx, color, radius = 5) => {
                 if (pts[idx]) {
                     this.canvasCtx.beginPath();
-                    this.canvasCtx.arc(pts[idx].x * w, pts[idx].y * h, 5, 0, 2 * Math.PI);
+                    this.canvasCtx.arc(pts[idx].x * w, pts[idx].y * h, radius, 0, 2 * Math.PI);
                     this.canvasCtx.fillStyle = color;
                     this.canvasCtx.fill();
+                    this.canvasCtx.strokeStyle = "#ffffff";
+                    this.canvasCtx.lineWidth = 1.5;
+                    this.canvasCtx.stroke();
                 }
             };
 
-            const drawBone = (idx1, idx2, color) => {
+            const drawBone = (idx1, idx2, color, lineWidth = 4) => {
                 if (pts[idx1] && pts[idx2]) {
                     this.canvasCtx.beginPath();
                     this.canvasCtx.moveTo(pts[idx1].x * w, pts[idx1].y * h);
                     this.canvasCtx.lineTo(pts[idx2].x * w, pts[idx2].y * h);
                     this.canvasCtx.strokeStyle = color;
-                    this.canvasCtx.lineWidth = 3;
+                    this.canvasCtx.lineWidth = lineWidth;
                     this.canvasCtx.stroke();
                 }
             };
 
-            // Vẽ cánh tay
-            drawBone(11, 12, "#00E5FF"); // Vai trái - Vai phải
-            drawBone(11, 13, "#76FF03"); // Vai trái - Khuỷu trái
-            drawBone(13, 15, "#76FF03"); // Khuỷu trái - Cổ tay trái
-            drawBone(12, 14, "#FF9100"); // Vai phải - Khuỷu phải
-            drawBone(14, 16, "#FF9100"); // Khuỷu phải - Cổ tay phải
+            // Vẽ xương vai & hai cánh tay phục vụ bài tập PHCN
+            drawBone(11, 12, "#00E5FF", 5); // Khớp vai trái - vai phải (Cyan nổi bật)
+            drawBone(11, 13, "#76FF03", 4); // Vai trái - Khuỷu trái (Lime)
+            drawBone(13, 15, "#76FF03", 4); // Khuỷu trái - Cổ tay trái
+            drawBone(12, 14, "#FF9100", 4); // Vai phải - Khuỷu phải (Cam)
+            drawBone(14, 16, "#FF9100", 4); // Khuỷu phải - Cổ tay phải
 
-            drawJoint(11, "#00E5FF");
-            drawJoint(12, "#00E5FF");
-            drawJoint(13, "#76FF03");
-            drawJoint(14, "#FF9100");
-            drawJoint(15, "#FFFF00");
-            drawJoint(16, "#FFFF00");
+            // Vẽ các khớp
+            drawJoint(11, "#00E5FF", 6);
+            drawJoint(12, "#00E5FF", 6);
+            drawJoint(13, "#76FF03", 5);
+            drawJoint(14, "#FF9100", 5);
+            drawJoint(15, "#FFFF00", 5);
+            drawJoint(16, "#FFFF00", 5);
 
             this.canvasCtx.restore();
+            this.updateStatus("Đang nhận diện cử động");
+        } else {
+            this.updateStatus("Đứng vào giữa khung hình");
         }
     },
 
