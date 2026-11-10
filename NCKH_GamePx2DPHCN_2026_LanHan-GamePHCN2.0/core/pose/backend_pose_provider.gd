@@ -34,6 +34,45 @@ var last_exercise_request: Dictionary = {}
 var _movement_generation := 0
 var _hold_running := false
 var _embedded_backend_pid := -1
+var _web_provider: WebPoseProvider = null
+
+
+func _init_web_provider() -> void:
+	_web_provider = WebPoseProvider.new()
+	add_child(_web_provider)
+	_web_provider.connection_changed.connect(func(connected: bool, details: Dictionary):
+		provider_connected = connected
+		_connected = connected
+		connection_changed.emit(connected, details)
+	)
+	_web_provider.tracking_status_changed.connect(func(status: Dictionary):
+		last_tracking_received_ms = Time.get_ticks_msec()
+		last_tracking_status = status.duplicate(true)
+		tracking_status_changed.emit(status)
+	)
+	_web_provider.calibration_progressed.connect(func(data: Dictionary):
+		calibration_progressed.emit(data)
+	)
+	_web_provider.calibration_finished.connect(func(data: Dictionary):
+		calibration_finished.emit(data)
+	)
+	_web_provider.pose_frame_received.connect(func(data: Dictionary):
+		last_pose_frame = data.duplicate(true)
+		pose_frame_received.emit(data)
+	)
+	_web_provider.exercise_event_received.connect(func(data: Dictionary):
+		exercise_event_received.emit(data)
+	)
+	_web_provider.camera_frame_received.connect(func(image: Image):
+		camera_frame_received.emit(image)
+	)
+	_web_provider.hand_control_received.connect(func(data: Dictionary):
+		hand_control_received.emit(data)
+	)
+	_web_provider.provider_error_received.connect(func(data: Dictionary):
+		provider_error_received.emit(data)
+	)
+	_web_provider.open_connection()
 
 
 func _try_start_embedded_backend() -> void:
@@ -62,6 +101,10 @@ func _notification(what: int) -> void:
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	if OS.has_feature("web"):
+		set_process(false)
+		_init_web_provider()
+		return
 	if "--no-save" in OS.get_cmdline_user_args():
 		auto_reconnect = false
 		set_process(true)
@@ -203,10 +246,16 @@ func _send_envelope(msg_type: String, payload: Dictionary) -> void:
 # TRIEN KHAI CAC PHUONG THUC CUA POSE_PROVIDER
 # ==========================================
 func open_connection() -> void:
+	if OS.has_feature("web") and is_instance_valid(_web_provider):
+		_web_provider.open_connection()
+		return
 	_try_connect_socket()
 
 
 func close_connection() -> void:
+	if OS.has_feature("web") and is_instance_valid(_web_provider):
+		_web_provider.close_connection()
+		return
 	_cancel_movement()
 	_socket.close()
 	_was_connected = false
@@ -221,6 +270,10 @@ func start_calibration(request: Dictionary) -> void:
 	active_session_id = str(request.get("session_id", active_session_id))
 	active_exercise_id = str(request.get("exercise_id", _current_exercise_id()))
 	_calibration_duration_ms = float(request.get("duration_ms", 5000))
+
+	if OS.has_feature("web") and is_instance_valid(_web_provider):
+		_web_provider.start_calibration(request)
+		return
 
 	if _is_socket_active():
 		_send_envelope("start_calibration", {
@@ -243,6 +296,10 @@ func start_exercise(request: Dictionary) -> void:
 	_paused = false
 	_rep_counter = 0
 
+	if OS.has_feature("web") and is_instance_valid(_web_provider):
+		_web_provider.start_exercise(request)
+		return
+
 	if _is_socket_active():
 		_send_envelope("start_exercise", request)
 	else:
@@ -252,12 +309,18 @@ func start_exercise(request: Dictionary) -> void:
 func pause_exercise(reason := "user_paused") -> void:
 	_cancel_movement()
 	_paused = true
+	if OS.has_feature("web") and is_instance_valid(_web_provider):
+		_web_provider.pause_exercise(reason)
+		return
 	if _is_socket_active():
 		_send_envelope("pause_exercise", {"reason": reason})
 
 
 func resume_exercise() -> void:
 	_paused = false
+	if OS.has_feature("web") and is_instance_valid(_web_provider):
+		_web_provider.resume_exercise()
+		return
 	if _is_socket_active():
 		_send_envelope("resume_exercise", {})
 
@@ -266,6 +329,12 @@ func stop_exercise(reason := "user_cancelled") -> void:
 	_cancel_movement()
 	_paused = false
 	_calibrating = false
+
+	if OS.has_feature("web") and is_instance_valid(_web_provider):
+		_web_provider.stop_exercise(reason)
+		active_exercise_id = ""
+		active_session_id = ""
+		return
 
 	if _is_socket_active():
 		_send_envelope("stop_exercise", {"reason": reason})

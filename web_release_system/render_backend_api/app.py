@@ -7,6 +7,7 @@ import os
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 from fastapi import FastAPI, HTTPException, Header, status
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import pymongo
@@ -128,9 +129,9 @@ def get_patient_profile(patient_id: str):
         {"_id": 0},
     )
     if not doc:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Khong tim thay ho so benh nhan: {patient_id}",
+        return JSONResponse(
+            status_code=404,
+            content={"ok": False, "error": "PATIENT_NOT_FOUND", "patient_id": patient_id},
         )
     return doc
 
@@ -192,9 +193,27 @@ def save_patient_profile(payload: PatientProfilePayload, patient_id: Optional[st
     return {
         "ok": True,
         "patient_id": target_id,
+        "profile": doc,
         "synced_sessions": synced_sessions_count,
+        "database": db.name,
+        "collection": "patient_profiles",
         "message": "Dong bo Cloud MongoDB Atlas thanh cong!",
     }
+
+
+@app.post("/api/sessions")
+def save_single_session(session_payload: Dict[str, Any]):
+    """Lưu 1 buổi tập riêng lẻ vào collection exercise_sessions."""
+    db = get_database()
+    sid = str(session_payload.get("session_id", "")).strip()
+    if not sid:
+        sid = f"sess_{int(datetime.now(timezone.utc).timestamp()*1000)}"
+        session_payload["session_id"] = sid
+    session_payload["_id"] = sid
+    if "updated_at_utc" not in session_payload:
+        session_payload["updated_at_utc"] = datetime.now(timezone.utc).isoformat()
+    db["exercise_sessions"].update_one({"_id": sid}, {"$set": session_payload}, upsert=True)
+    return {"ok": True, "session_id": sid, "saved": True}
 
 
 @app.post("/api/patients/{patient_id}/reset")

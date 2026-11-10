@@ -10,7 +10,7 @@ const HEARTBEAT_INTERVAL := 30.0
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	http = HTTPRequest.new()
-	http.timeout = 5.0
+	http.timeout = 25.0
 	add_child(http)
 	kick.call_deferred()
 

@@ -461,6 +461,14 @@ func sync_all_patients_to_cloud() -> void:
 # DONG BO DATABASE ONLINE (MONGODB / SUPABASE / FIREBASE)
 # ==========================================
 func load_cloud_config() -> void:
+	if OS.has_feature("web"):
+		cloud_db_enabled = true
+		cloud_db_provider = "mongodb"
+		cloud_db_url = "https://test-nckh.onrender.com"
+		cloud_db_api_key = "rehab_pixel_game"
+		_update_cloud_status("Cloud DB Render sẵn sàng", true)
+		return
+
 	var env_url := OS.get_environment("PHCN_CLOUD_URL")
 	var env_key := OS.get_environment("PHCN_CLOUD_API_KEY")
 	var env_provider := OS.get_environment("PHCN_CLOUD_PROVIDER")
@@ -539,6 +547,8 @@ func is_cloud_configured() -> bool:
 func _get_mongodb_bridge_base() -> String:
 	if cloud_db_url.begins_with("http://") or cloud_db_url.begins_with("https://"):
 		return cloud_db_url
+	if OS.has_feature("web"):
+		return "https://test-nckh.onrender.com"
 	return DEFAULT_MONGO_BRIDGE_URL
 
 
